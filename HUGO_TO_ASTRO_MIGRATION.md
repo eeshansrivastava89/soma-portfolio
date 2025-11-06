@@ -29,31 +29,33 @@
 
 ## Migration Phases (6)
 
-### PHASE 1: Clone & Setup (30 min) ⭐ Easy
+### ✅ PHASE 1: Clone & Setup (30 min) - COMPLETE
 
-**Tasks:**
-1. Clone: `git clone https://github.com/srleom/astro-theme-resume.git soma-portfolio`
-2. Install: `cd soma-portfolio && pnpm install` (or npm)
-3. Run: `pnpm dev` → Visit `http://localhost:4321`
-4. Configure: Edit `src/site.config.ts` (title, author, links)
-5. Install extras: `pnpm add framer-motion js-yaml @types/js-yaml`
+**Completed Tasks:**
+1. ✅ Cloned theme to `/Users/eeshans/dev/soma-portfolio`
+2. ✅ Installed 989 packages with npm
+3. ✅ Dev server running cleanly at `http://localhost:4321` (fixed TypeScript check error)
+4. ✅ Configured `src/site.config.ts` (author: Eeshan S., title, description)
+5. ✅ Installed framer-motion, js-yaml, @types/js-yaml
+6. ✅ Created GitHub repo: https://github.com/eeshansrivastava89/soma-portfolio
+7. ✅ Pushed 3 commits to main branch
 
-**Success:** ✅ Theme running locally | Config updated | Dependencies installed
+**Success:** ✅ Theme running locally | Config updated | Dependencies installed | Repo created
 
 ---
 
-### PHASE 2: Content Migration (45 min) ⭐ Easy
+### 🔄 PHASE 2: Content Migration (45 min) ⭐ Easy - IN PROGRESS
 
 **Tasks:**
-1. Delete demo posts from `src/content/blog/`
-2. Copy your posts: `soma-blog-hugo/content/posts/*.md` → `src/content/blog/`
-3. Update frontmatter (Hugo → Astro format: `date` → `publishDate`, add `description`)
-4. Copy assets:
-   - `/static/images/` → `public/images/`
-   - `/static/logos/` → `public/logos/`
-   - `/static/css/ab-simulator.css` → `public/css/`
-   - `/static/js/ab-simulator.js` → `public/js/`
-5. Copy timeline: `/data/timeline.yaml` → `src/data/timeline.yaml`
+1. ⬜ Delete demo posts from `src/content/post/`
+2. ⬜ Copy your posts: `../soma-blog-hugo/content/posts/*.md` → `src/content/post/`
+3. ⬜ Update frontmatter (Hugo → Astro format: `date` → `publishDate`, add `description`)
+4. ⬜ Copy assets:
+   - `../soma-blog-hugo/static/images/` → `public/images/`
+   - `../soma-blog-hugo/static/logos/` → `public/logos/`
+   - `../soma-blog-hugo/static/css/ab-simulator.css` → `public/css/`
+   - `../soma-blog-hugo/static/js/ab-simulator.js` → `public/js/`
+5. ⬜ Copy timeline: `../soma-blog-hugo/data/timeline.yaml` → `src/data/timeline.yaml`
 
 **Success:** ✅ Blog posts visible | Assets accessible | Timeline data ready
 
