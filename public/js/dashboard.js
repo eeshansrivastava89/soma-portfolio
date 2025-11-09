@@ -222,20 +222,20 @@
 	// Render recent completions table
 	function renderCompletionsTable(completions, theme) {
 		const isDark = document.documentElement.classList.contains('dark');
+		const headerBg = isDark ? '#1f2937' : '#f3f4f6';
 		
 		if (!completions || completions.length === 0) {
-			const headerBg = isDark ? '#1f2937' : '#f3f4f6';
 			const emptyTrace = {
 				type: 'table',
 				header: {
-					values: ['<b>Variant</b>', '<b>Time</b>', '<b>Words</b>', '<b>Guesses</b>', '<b>When</b>'],
+					values: ['<b>No Data</b>'],
 					align: 'center',
 					fill: { color: headerBg },
 					font: { color: theme.font.color, size: 12, family: 'Satoshi, monospace' },
 					height: 28
 				},
 				cells: {
-					values: [['No data'], [''], [''], [''], ['']],
+					values: [['No completions yet']],
 					align: 'center',
 					fill: { color: 'rgba(0,0,0,0)' },
 					font: { color: '#9ca3af', size: 11 },
@@ -252,17 +252,15 @@
 			return;
 		}
 
-		const headerBg = isDark ? '#1f2937' : '#f3f4f6';
-		const variants = completions.map(c => c.variant);
-		const times = completions.map(c => c.completion_time_seconds.toFixed(1) + 's');
-		const words = completions.map(c => c.correct_words_count);
-		const guesses = completions.map(c => c.total_guesses_count);
-		const timestamps = completions.map(c => new Date(c.timestamp).toLocaleTimeString());
+		// Auto-detect columns from first row
+		const columns = Object.keys(completions[0]);
+		const headers = columns.map(col => `<b>${col.replace(/_/g, ' ').toUpperCase()}</b>`);
+		const values = columns.map(col => completions.map(row => row[col]));
 
 		const trace = {
 			type: 'table',
 			header: {
-				values: ['<b>Variant</b>', '<b>Time</b>', '<b>Words</b>', '<b>Guesses</b>', '<b>When</b>'],
+				values: headers,
 				align: 'center',
 				fill: { color: headerBg },
 				font: { color: theme.font.color, size: 12, family: 'Satoshi, monospace' },
@@ -270,7 +268,7 @@
 				line: { color: isDark ? '#374151' : '#e5e7eb', width: 1 }
 			},
 			cells: {
-				values: [variants, times, words, guesses, timestamps],
+				values: values,
 				align: 'center',
 				fill: { 
 					color: [completions.map((c, i) => i % 2 === 0 ? 'rgba(0,0,0,0.02)' : 'rgba(0,0,0,0)')]
@@ -285,8 +283,8 @@
 			margin: { l: 0, r: 0, t: 0, b: 0 },
 			paper_bgcolor: 'transparent',
 			plot_bgcolor: 'transparent',
-			height: completions.length * 24 + 40
-		}, { responsive: true, displayModeBar: false });
+			height: 10 * 24 + 40  // Fixed height: 10 rows visible, scrollable
+		}, { responsive: true, displayModeBar: false, scrollZoom: false });
 	}
 
 	// Main update function
@@ -296,7 +294,7 @@
 				fetch(`${API_URL}/api/variant-stats`).then(r => r.json()),
 				fetch(`${API_URL}/api/comparison`).then(r => r.json()),
 				fetch(`${API_URL}/api/conversion-funnel`).then(r => r.json()),
-				fetch(`${API_URL}/api/recent-completions?limit=10`).then(r => r.json()),
+				fetch(`${API_URL}/api/recent-completions?limit=50`).then(r => r.json()),
 				fetch(`${API_URL}/api/time-distribution`).then(r => r.json())
 			]);
 
