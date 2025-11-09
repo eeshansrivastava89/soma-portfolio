@@ -293,4 +293,6 @@ explore the codebase of all 4 repos in the workspace (with "soma-") so you under
 
 the previous AI assistant helped me build a fastapi + plotly approach for data analysis and deployed the service as well
 
+now I am stuck with posthog feature flag working fine in local but not in production need your help solving. the previous assistant has added a ton of bloat and logic -- but please remember I WANT to use the feature flag for randomization and not a math.random fallback
+
 ---

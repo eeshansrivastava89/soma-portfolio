@@ -31,10 +31,12 @@ let puzzleState = {
 document.addEventListener('DOMContentLoaded', () => {
   // Wait for PostHog feature flags to load before initializing
   let hasInitialized = false;
+  let timeoutId = null;
   
   function doInit() {
     if (hasInitialized) return;
     hasInitialized = true;
+    if (timeoutId) clearTimeout(timeoutId);
     initializeVariant();
     displayVariant();
     setupPuzzle();
@@ -46,8 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
     posthog.onFeatureFlags(doInit);
   }
   
-  // Timeout fallback - if PostHog doesn't fire callback in 1 second, initialize anyway
-  setTimeout(doInit, 1000);
+  // Timeout fallback - if PostHog doesn't fire callback in 3 seconds, show error
+  timeoutId = setTimeout(() => {
+    if (!hasInitialized) {
+      console.error('PostHog feature flags failed to load within 3 seconds');
+      showFeatureFlagError();
+    }
+  }, 3000);
 });
 
 const initializeVariant = () => {
@@ -60,9 +67,10 @@ const initializeVariant = () => {
   } else if (posthogVariant === 'control') {
     variant = 'A';  // control = Variant A (3 words)
   } else {
-    // Fallback if feature flag didn't load
-    variant = Math.random() < 0.5 ? 'A' : 'B';
-    console.warn('PostHog feature flag not loaded, using random assignment. Got:', posthogVariant);
+    // Feature flag not loaded yet - this should not happen if PostHog is working
+    console.error('PostHog feature flag not loaded properly. Variant:', posthogVariant, 'Feature flag key:', FEATURE_FLAG_KEY);
+    showFeatureFlagError();
+    return; // Don't initialize if feature flag failed
   }
 
   localStorage.setItem('simulator_variant', variant);
@@ -100,6 +108,15 @@ const showFeatureFlagError = () => {
 
 const displayVariant = () => {
   const variant = localStorage.getItem('simulator_variant');
+  if (!variant) {
+    // Feature flag failed to load
+    $('user-variant').textContent = 'Error';
+    $('user-username').textContent = 'Feature flag failed';
+    $('difficulty-display').textContent = 'Check PostHog config';
+    $('target-word-count').textContent = '0';
+    return;
+  }
+  
   puzzleState.variant = variant;
   const username = localStorage.getItem('simulator_username');
   const config = PUZZLE_CONFIG[variant];
@@ -118,6 +135,18 @@ const displayVariant = () => {
 };
 
 const setupPuzzle = () => {
+  const variant = localStorage.getItem('simulator_variant');
+  if (!variant) {
+    // Disable start button if feature flag failed
+    const startButton = $('start-button');
+    if (startButton) {
+      startButton.disabled = true;
+      startButton.textContent = 'Feature Flag Error';
+      startButton.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+    return;
+  }
+  
   $('start-button').addEventListener('click', startChallenge);
   $('reset-button').addEventListener('click', resetPuzzle);
   $('try-again-inline-button').addEventListener('click', resetPuzzle);
