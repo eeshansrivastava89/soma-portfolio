@@ -153,18 +153,83 @@ import PageLayout from '../../layouts/BaseLayout.astro'
 		</div>
 
 		<!-- Dashboard -->
-		<div id="dashboard-section" class="space-y-3 rounded-lg border bg-card p-4">
+		<div id="dashboard-section" class="space-y-6 rounded-lg border bg-card p-4">
 			<h3 class="font-semibold">📊 Analytics Dashboard</h3>
-			<p class="text-xs text-muted-foreground">Real-time A/B test results powered by PostHog + Supabase + Streamlit</p>
-			<iframe
-				src="https://soma-streamlit-dashboard.fly.dev/?embed=true&embed_options=show_colored_line"
-				class="w-full rounded-lg border"
-				height="2400"
-				title="A/B Test Dashboard"
-				loading="lazy"
-				scrolling="no"
-			></iframe>
+			<p class="text-xs text-muted-foreground">Real-time A/B test results (updates every 10 seconds)</p>
+
+			<!-- Comparison Card -->
+			<div id="comparison-card" class="rounded-lg border bg-muted p-4">
+				<div class="text-sm">Loading comparison...</div>
+			</div>
+
+			<!-- Charts -->
+			<div id="avg-time-chart"></div>
+			<div id="completion-chart"></div>
 		</div>
+
+		<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+		<script is:inline>
+		// Auto-detect local vs production
+		const API_URL = window.location.hostname === 'localhost'
+			? 'http://localhost:8000'
+			: 'https://soma-analytics.fly.dev';
+
+		async function updateDashboard() {
+			try {
+				const [stats, comparison] = await Promise.all([
+					fetch(`${API_URL}/api/variant-stats`).then(r => r.json()),
+					fetch(`${API_URL}/api/comparison`).then(r => r.json())
+				]);
+
+				document.getElementById('comparison-card').innerHTML = `
+					<div class="grid grid-cols-2 gap-4">
+						<div>
+							<div class="text-xs text-muted-foreground">Variant A (3 words)</div>
+							<div class="font-mono text-2xl font-bold">${comparison.variant_a_avg}s</div>
+							<div class="text-xs">${comparison.variant_a_completions} completions</div>
+						</div>
+						<div>
+							<div class="text-xs text-muted-foreground">Variant B (4 words)</div>
+							<div class="font-mono text-2xl font-bold">${comparison.variant_b_avg}s</div>
+							<div class="text-xs">${comparison.variant_b_completions} completions</div>
+						</div>
+					</div>
+					<div class="mt-3 text-sm ${comparison.percentage_difference > 0 ? 'text-red-600' : 'text-green-600'}">
+						${comparison.interpretation}
+					</div>
+				`;
+
+				Plotly.newPlot('avg-time-chart', [{
+					x: stats.map(d => `Variant ${d.variant}`),
+					y: stats.map(d => d.avg_completion_time),
+					type: 'bar',
+					marker: { color: ['#636EFA', '#EF553B'] }
+				}], {
+					title: 'Average Completion Time',
+					yaxis: { title: 'Seconds' },
+					height: 300
+				});
+
+				Plotly.newPlot('completion-chart', stats.map(d => ({
+					y: [d.min_completion_time, d.p25_completion_time, d.median_completion_time, d.p75_completion_time, d.max_completion_time],
+					type: 'box',
+					name: `Variant ${d.variant}`,
+					boxmean: true
+				})), {
+					title: 'Completion Time Distribution',
+					yaxis: { title: 'Seconds' },
+					height: 300
+				});
+
+			} catch (err) {
+				console.error('Dashboard error:', err);
+				document.getElementById('comparison-card').innerHTML = `<div class="text-red-600 text-sm">Error loading data. Is the API running?</div>`;
+			}
+		}
+
+		updateDashboard();
+		setInterval(updateDashboard, 10000);
+		</script>
 	</div>
 </PageLayout>
 

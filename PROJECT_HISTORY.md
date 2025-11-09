@@ -1,17 +1,17 @@
 # SOMA Portfolio: Complete Project History
 
-**Status:** 🟢 LIVE | **Domain:** https://eeshans.com | **Current Version:** Astro 4.4.15 | **Updated:** Nov 8, 2025
+**Status:** 🟢 LIVE | **Domain:** https://eeshans.com | **Current Version:** Astro 4.4.15 | **Updated:** Nov 2025
 
 ---
 
-## Memory Refresh (Read This First)
+## Memory Refresh for AI Assistant (Read This First)
 
 **What is SOMA?** A demonstration portfolio site showcasing enterprise-grade analytics, experimentation, and data science workflows through an interactive A/B test simulator.
 
 **Three Repos:**
-1. `soma-blog-hugo` - Original Hugo blog (Oct 2025, now archived)
-2. `soma-streamlit-dashboard` - Analytics dashboard (Oct 2025, still live)
-3. `soma-portfolio` - New Astro portfolio (Nov 2025, current production)
+1. `soma-blog-hugo` - Original Hugo blog (ARCHIVED - local only, Fly deployment removed, DNS removed)
+2. `soma-streamlit-dashboard` - Analytics dashboard (Deployed on Fly.io, local only)
+3. `soma-portfolio` - Astro portfolio (PRODUCTION - live at https://eeshans.com)
 
 **Key Insight:** Each phase solved a different problem. Hugo + PostHog + Supabase + Streamlit proved the concept. Astro migration consolidated everything into one clean, modern stack.
 
@@ -83,8 +83,8 @@ Cloudflare            → DNS records (A + AAAA + CNAME for www)
 - Views: v_variant_stats, v_conversion_funnel, v_stats_by_hour
 
 **Streamlit:** Analytics dashboard (Python app)
-- URL: `https://soma-app-dashboard-bfabkj7dkvffezprdsnm78.streamlit.app`
 - Repo: soma-streamlit-dashboard
+- Deployed on: Fly.io (private, local access only)
 - Refresh: 10-second cache TTL
 - Embedding: Iframe in `/projects/ab-test-simulator` page
 
@@ -138,8 +138,29 @@ Migrated to modern Astro framework while preserving all integrations:
   - Two-column grid: Newsletter (left, icon + label + description) + Utilities (right: A/B Simulator, Browse Projects)
   - Created `src/data/social-links.yaml` for configurable social links (no hardcoding)
   - Integrated astro-icon with @iconify-json/simple-icons for brand logos
-  - Pure Tailwind CSS styling (eliminated custom CSS bloat)
-  - Responsive design: stacked on mobile, side-by-side on desktop with vertical divider
+
+- **Analytics Backend Replacement (Nov 8-9, 2025 - COMPLETE)**
+  - Replaced Streamlit iframe with FastAPI + Vanilla JS + Plotly.js
+  - Created `soma-analytics` repo: Minimal FastAPI backend (126 lines)
+  - Extracted analysis logic to `analysis/ab_test.py` - pure Python functions (no notebooks, no frameworks)
+  - Deployed to https://soma-analytics.fly.dev
+  - Frontend: Vanilla JavaScript (~70 lines) with Plotly.js for charts
+  - Auto-detects local vs production API URL
+  - Real-time updates every 10 seconds
+
+  **Architecture:**
+  ```
+  Python analysis (analysis/ab_test.py)
+    ↓
+  FastAPI JSON endpoints (api.py)
+    ↓
+  Vanilla JS fetch in Astro (ab-test-simulator.astro)
+    ↓
+  Plotly.js renders charts (no React, no frameworks)
+  ```
+
+  **Result:** Streamlit retired. Clean separation: Python for analysis, minimal JS for viz. No React complexity.
+
 
 ---
 
@@ -162,6 +183,13 @@ Migrated to modern Astro framework while preserving all integrations:
 - Create: `src/content/post/[slug].md` with frontmatter
 - Test: `npm run dev` → check `/blog` and `/blog/[slug]`
 - Deploy: Push to main
+
+**If you need to change analytics/add new metrics:**
+- Edit: `soma-analytics/analysis/ab_test.py` (add Python function)
+- Add endpoint: `soma-analytics/api.py` (return function result as JSON)
+- Test locally: `python3 api.py` → `curl http://localhost:8000/api/your-endpoint`
+- Deploy: `cd soma-analytics && fly deploy`
+- Update viz: Edit vanilla JS in `src/pages/projects/ab-test-simulator.astro`
 
 **If PostHog events aren't tracking:**
 - Check: `.env` has `PUBLIC_POSTHOG_KEY` and `PUBLIC_POSTHOG_HOST`
@@ -221,3 +249,29 @@ localStorage.clear(); posthog.reset(); location.reload();
 
 This document is your north star. Update it. Reference it.
 
+
+
+---
+## Rationale for the Python backend + front-end in Astro
+
+I am on phase 3 of my project .. please read through project_history.md in extreme detail so you understand where I am right now .. pay attention to working principles
+
+the previous AI assistant led me astray so I need you to get up to speed .. also explore the codebase of all 4 repos in the workspace (with "soma-") so you understand the code in context of my project history doc
+
+
+---
+soma-analytics is the one I need help with
+
+as you can see the architecture of my website is that I have an astro site, that is my portfolio with blog content, about content and landing pages for projects like the ab-simulator
+
+what I want is a separate repo for analytics and python analysis -- ideally I wanted to separate apis and complex stuff from just being able to work like a data scientist in a notebook querying supabase tables .. then being able to build whatever plots I want and render on the astro site 
+
+before we do anything I need you to think through this problem on what's the long-term solution here 
+
+i might do many projects in the future like this and just want minimal complexity of front-end stuff .. most of the time will be spend on the analysis
+
+take what the previous assistant tried to do with the fastapi + notebook + react approach but that was an incredible amount of overhead for me .. i don't want to manage react at all, i know nothing about it 
+
+I do need real-time though .. the simulator is exactly supposed to have that .. as users complete puzzles, they see the analytics update in real time 
+
+do your research and let me know if you have some good options 
