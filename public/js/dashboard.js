@@ -30,7 +30,6 @@
 
 	function renderComparison(c) {
 		const diff = c.percentage_difference;
-		const sig = Math.abs(diff) > 10;
 		
 		document.getElementById('variant-a-time').textContent = `${c.variant_a_avg}s`;
 		document.getElementById('variant-a-count').textContent = c.variant_a_completions;
@@ -38,30 +37,16 @@
 		document.getElementById('variant-b-count').textContent = c.variant_b_completions;
 		document.getElementById('comparison-diff').textContent = `${diff > 0 ? '+' : ''}${diff}%`;
 		
-		const statusBox = document.getElementById('comparison-status-box');
 		const statusText = document.getElementById('comparison-status');
 		
-		if (sig) {
-			statusBox.classList.remove('hidden');
-			const isHarder = diff > 0;
-			
-			// Remove old color classes
-			statusBox.classList.remove('bg-red-50', 'dark:bg-red-950/20', 'bg-green-50', 'dark:bg-green-950/20');
-			statusText.classList.remove('text-red-600', 'dark:text-red-400', 'text-green-600', 'dark:text-green-400');
-			
-			// Add new color classes based on comparison
-			if (isHarder) {
-				statusText.textContent = '🔴 4-words variant is significantly harder';
-				statusText.className = 'text-sm font-medium text-red-600';
-				document.getElementById('comparison-diff').className = 'font-mono text-2xl font-bold text-red-600';
-			} else {
-				statusText.textContent = '🟢 3-words variant is significantly harder';
-				statusText.className = 'text-sm font-medium text-green-600';
-				document.getElementById('comparison-diff').className = 'font-mono text-2xl font-bold text-green-600';
-			}
+		if (diff > 0) {
+			// B is harder (takes longer)
+			statusText.textContent = '4-words variant seems to be harder';
+		} else if (diff < 0) {
+			// A is harder (takes longer)
+			statusText.textContent = '3-words variant seems to be harder';
 		} else {
-			statusBox.classList.add('hidden');
-			document.getElementById('comparison-diff').className = 'font-mono text-2xl font-bold text-muted-foreground';
+			statusText.textContent = 'Both variants are equal';
 		}
 	}
 

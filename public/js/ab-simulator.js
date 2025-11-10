@@ -3,8 +3,6 @@ const PUZZLE_CONFIG = {
   A: { letters: ['M','A','T','H','E','M','A','T','I','C','S','L','O','W'], targetWords: ['MATH','THEM','MACE'], difficulty: 3, targetCount: 3 },
   B: { letters: ['C','O','M','P','U','T','E','R','S','C','I','E','N','C','E','D','A','T','A'], targetWords: ['COMP','PURE','ENCE','DATA'], difficulty: 5, targetCount: 4 }
 };
-const ADJECTIVES = ['Lightning','Swift','Quick','Speedy','Rapid','Fast','Blazing','Turbo','Sonic','Flash'];
-const ANIMALS = ['Leopard','Cheetah','Falcon','Hawk','Fox','Wolf','Tiger','Eagle','Panther','Gazelle'];
 
 const $ = (id) => document.getElementById(id);
 const show = (...ids) => ids.forEach(id => $(id).classList.remove('hidden'));
@@ -18,9 +16,12 @@ const formatTime = (ms) => {
 };
 
 const generateUsername = () => {
-  const adj = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
-  const animal = ANIMALS[Math.floor(Math.random() * ANIMALS.length)];
-  return `${adj} ${animal}`;
+  // Use the global function from username-generator.js module
+  if (typeof window.generateRandomUsername === 'function') {
+    return window.generateRandomUsername();
+  }
+  // Fallback if module hasn't loaded yet
+  return 'Player ' + Math.floor(Math.random() * 1000);
 };
 
 let puzzleState = {
@@ -68,6 +69,11 @@ const initializeVariant = () => {
   if (!localStorage.getItem('simulator_username')) {
     const username = generateUsername();
     localStorage.setItem('simulator_username', username);
+    
+    // Identify user in PostHog with their username
+    if (typeof posthog !== 'undefined') {
+      posthog.identify(username);
+    }
   }
 };
 
@@ -202,19 +208,35 @@ const endChallenge = async (success) => {
   $('try-again-inline-button').classList.remove('hidden');
   $('result-card').classList.remove('hidden');
   
+  const statusBadge = $('result-card').querySelector('.inline-flex');
+  const emojiSpan = statusBadge.querySelector('.text-xl');
+  const statusTitle = statusBadge.querySelector('.text-xs');
+  
   if (success) {
     const isPersonalBest = updateLeaderboard(puzzleState.completionTime, puzzleState.variant);
     $('result-time').textContent = formatTime(puzzleState.completionTime);
     $('result-guesses').textContent = puzzleState.guessedWords.length;
     $('result-message').innerHTML = isPersonalBest ? '🏆 Personal Best!' : '✓ Complete!';
+    
+    // Green success styling
     $('result-card').classList.remove('border-red-200', 'bg-red-50', 'dark:border-red-900', 'dark:bg-red-950');
     $('result-card').classList.add('border-green-200', 'bg-green-50', 'dark:border-green-900', 'dark:bg-green-950');
+    statusBadge.classList.remove('border-red-200', 'dark:border-red-900');
+    statusBadge.classList.add('border-green-200', 'dark:border-green-900');
+    emojiSpan.textContent = '🎉';
+    statusTitle.textContent = 'Challenge Complete';
   } else {
     $('result-time').textContent = '00:60:00';
     $('result-guesses').textContent = puzzleState.foundWords.length + '/' + PUZZLE_CONFIG[puzzleState.variant].targetCount;
     $('result-message').innerHTML = '⏰ Time\'s up!';
+    
+    // Red failure styling
     $('result-card').classList.remove('border-green-200', 'bg-green-50', 'dark:border-green-900', 'dark:bg-green-950');
     $('result-card').classList.add('border-red-200', 'bg-red-50', 'dark:border-red-900', 'dark:bg-red-950');
+    statusBadge.classList.remove('border-green-200', 'dark:border-green-900');
+    statusBadge.classList.add('border-red-200', 'dark:border-red-900');
+    emojiSpan.textContent = '😞';
+    statusTitle.textContent = 'Challenge Failed';
   }
   
   trackEvent(success ? 'puzzle_completed' : 'puzzle_failed', { 
@@ -253,6 +275,7 @@ const trackEvent = (eventName, props = {}) => {
     
     posthog.capture(eventName, {
       variant: puzzleState.variant,
+      username: localStorage.getItem('simulator_username'),
       $feature_flag: FEATURE_FLAG_KEY,
       $feature_flag_response: posthog.getFeatureFlag(FEATURE_FLAG_KEY),
       user_id: localStorage.getItem('simulator_user_id'),
@@ -264,53 +287,44 @@ const trackEvent = (eventName, props = {}) => {
 };
 
 
-const updateLeaderboard = (currentTime = null, currentVariant = null) => {
-  const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '[]');
+const fetchAndDisplayLeaderboard = async (variant) => {
   const leaderboardList = $('leaderboard-list');
-  let isPersonalBest = false;
-
-  if (currentTime && currentVariant) {
-    const username = localStorage.getItem('simulator_username');
-    const timeInSeconds = currentTime / 1000;
-    const existingIndex = leaderboard.findIndex(e => e.username === username);
-
-    if (existingIndex >= 0) {
-      if (timeInSeconds < leaderboard[existingIndex].time) {
-        leaderboard[existingIndex] = { username, time: timeInSeconds, variant: currentVariant };
-        isPersonalBest = true;
-      }
-    } else {
-      leaderboard.push({ username, time: timeInSeconds, variant: currentVariant });
-      isPersonalBest = true;
-    }
-    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-  }
-  
-  if (leaderboard.length === 0) {
-    leaderboardList.innerHTML = '<p style="text-align: center; color: #9ca3af; font-style: italic; font-size: 0.75rem; margin: 0; padding: 1rem 0;">Complete to rank</p>';
-    return isPersonalBest;
-  }
-  
-  leaderboard.sort((a, b) => a.time - b.time);
   const username = localStorage.getItem('simulator_username');
-  const top5 = leaderboard.slice(0, 5);
   
-  let html = top5.map((entry, i) => {
-    const isCurrentUser = entry.username === username;
-    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1 + '.';
-    const highlight = isCurrentUser ? ' bg-blue-50 dark:bg-blue-950 border-l-2 border-blue-500 pl-2' : '';
-    return `<div class="flex items-center justify-between py-1.5${highlight}"><span class="font-mono text-xs"><span style="display:inline-block;width:1.5rem;">${medal}</span> ${entry.username}${isCurrentUser ? ' 🌟' : ''}</span><span style="font-weight: 600; color: #3b82f6;">${entry.time.toFixed(2)}s</span></div>`;
-  }).join('');
-  
-  // Add current attempt if it's slower than personal best
-  if (currentTime) {
-    const timeInSeconds = currentTime / 1000;
-    const userBest = leaderboard.find(e => e.username === username);
-    if (userBest && timeInSeconds > userBest.time) {
-      html += `<div style="border-top: 1px solid #d1d5db; margin-top: 0.5rem; padding-top: 0.5rem;"><div class="flex items-center justify-between py-1.5"><span class="font-mono text-xs" style="color: #9ca3af;">↳ Your current time</span><span style="font-weight: 600; color: #f59e0b;">${timeInSeconds.toFixed(2)}s</span></div></div>`;
+  try {
+    const response = await fetch(`https://soma-analytics.fly.dev/api/leaderboard?variant=${variant}&limit=10`);
+    if (!response.ok) throw new Error('Failed to fetch leaderboard');
+    
+    const data = await response.json();
+    
+    if (!data || data.length === 0) {
+      leaderboardList.innerHTML = '<p style="text-align: center; color: #9ca3af; font-style: italic; font-size: 0.75rem; margin: 0; padding: 1rem 0;">Complete to rank</p>';
+      return;
     }
+    
+    const html = data.slice(0, 5).map((entry, i) => {
+      const isCurrentUser = entry.username === username;
+      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '🏅';
+      const highlight = isCurrentUser ? ' bg-blue-50 dark:bg-blue-950 border-l-2 border-blue-500 pl-2' : '';
+      return `<div class="flex items-center justify-between py-1.5${highlight}"><span class="font-mono text-xs"><span style="display:inline-block;width:1.5rem;">${medal}</span> ${entry.username}${isCurrentUser ? ' 🌟' : ''}</span><span style="font-weight: 600; color: #3b82f6;">${entry.best_time.toFixed(2)}s</span></div>`;
+    }).join('');
+    
+    leaderboardList.innerHTML = html;
+  } catch (error) {
+    console.error('Leaderboard fetch error:', error);
+    leaderboardList.innerHTML = '<p style="text-align: center; color: #9ca3af; font-style: italic; font-size: 0.75rem; margin: 0; padding: 1rem 0;">Loading...</p>';
+  }
+};
+
+const updateLeaderboard = (currentTime = null, currentVariant = null) => {
+  // After completion, fetch fresh leaderboard data from API
+  if (currentTime && currentVariant) {
+    fetchAndDisplayLeaderboard(currentVariant);
+    return true; // Always consider it notable since it's now global
   }
   
-  leaderboardList.innerHTML = html;
-  return isPersonalBest;
+  // Initial load: fetch for current variant
+  const variant = puzzleState?.variant || 'A';
+  fetchAndDisplayLeaderboard(variant);
+  return false;
 };
