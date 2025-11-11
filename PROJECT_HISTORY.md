@@ -367,41 +367,39 @@ localStorage.clear(); posthog.reset(); location.reload();
 
 ## Temporary Recommendations (Nov 10, 2025)
 
-Documenting concrete, low-risk improvements to consider next. No code changes made yet—this is a review checklist for tomorrow.
+Status: In Progress (multiple items completed). This section tracks incremental optimization and hygiene work.
 
 1) Performance and Network
-- Coalesce API calls: Merge `/api/variant-stats` and `/api/comparison` (comparison derives from stats). Expected: -1 HTTP request per 5s refresh (≈12/hr/user); risk: low.
-- FastAPI CORS lockdown: Restrict `allow_origins` to `https://eeshans.com` and localhost (keep dev smooth). Risk: low.
-- Dashboard dev host check: Expand localhost detection to include `127.0.0.1` and local IPs (e.g., `hostname.startsWith('192.168.')`). Risk: low.
-- Supabase indexes (DB side): Ensure indexes on `(event, variant)`, and on `properties->>'username'` for leaderboard MIN/COUNT query. Risk: low, ops task.
+- DONE: Coalesced `/api/variant-stats` + `/api/comparison` → `/api/variant-overview` (removes 1 request per refresh cycle).
+- DONE: FastAPI CORS lockdown (explicit origins list: prod + local dev variants).
+- PARTIAL: Dashboard host check now supports `localhost` + `127.0.0.1`; LAN IP detection still TODO.
+- TODO: Supabase indexes `(event, variant)` and `properties->>'username'` (document/verify). Ops task.
 
 2) UX polish and copy consistency
-- Comparison labels: In `src/pages/projects/ab-test-simulator.astro`, the comparison card still references “3 words / 4 words”. Update to pineapple counts or neutral labels (e.g., “Control (A)” / “Treatment (B)”). Risk: low.
-- Found items label: `found-words-list` now displays pineapples. Rename to `found-pineapples` for clarity (JS + HTML). Risk: low.
-- Feature flag naming: Consider renaming `word_search_difficulty_v2` to a memory-game-specific flag for clarity once data collection is stable. Risk: low.
+- DONE: Comparison labels updated to "Control (4 pineapples)" / "Treatment (5 pineapples)".
+- DONE: Found items label renamed → `found-pineapples-list`.
+- TODO: Feature flag rename (`word_search_difficulty_v2` → memory-game-specific) post stable period.
 
 3) JS audit: redundancies, dead code, and micro-optimizations
-- Duplicate IDs (bug): `ab-test-simulator.astro` declares two elements with id `try-again-inline-button` (one in controls row, one in result card). Use unique IDs or a class selector, and update listeners in `ab-simulator.js`. Risk: low.
-- Dead/legacy state in `ab-simulator.js`:
-   - `guessedWords`, `foundWords`, and `updateFoundWordsList()` are remnants from word-search; no longer used in the memory game flow. Candidate for removal.
-   - `memorizeTime: 5000` is defined in state but not used; memorize step is hard-coded with `setTimeout(2000)` + a 5s countdown. Either wire `memorizeTime` into the flow or remove it.
-   - `input-section` and `word-input` remain in the DOM but are hidden and unused—carryover from the old mechanic. Safe to delete with corresponding JS.
-- Error UI target mismatch in `dashboard.js`: error path updates `#comparison-card`, but this element ID doesn’t exist in the page DOM. Either add a wrapper with this ID or switch to an existing container. Risk: low.
-- Timer render cadence: Consider using `requestAnimationFrame` (or a 250ms interval) for display updates; keep the underlying timing via `Date.now()` for accuracy. Risk: low.
-- Small utilities: Deduplicate DOM helpers (`$, show, hide, toggle`) for reuse between `ab-simulator.js` and `dashboard.js` via a tiny shared `public/js/utils.js`. Expected JS LOC reduction: ~20–40 lines (≈3–4%). Risk: low.
-- Leaderboard flicker: Cache the user’s personal best in `localStorage` and render immediately while awaiting API; then reconcile with server response. Risk: low.
+- DONE: Duplicate ID removal (unified `.try-again-button`).
+- DONE: Legacy word-search artifacts removed (arrays, input section, helper fn).
+- DONE: Renamed found words list → pineapples.
+- DONE: Extracted DOM helpers to `public/js/utils.js`; removed inline duplicates (ab-simulator.js).
+- TODO: Error UI target alignment in `dashboard.js` (ensure correct container reference).
+- TODO: `requestAnimationFrame` for timer (potential smoother cadence, optional).
+- TODO: Personal best cache to reduce leaderboard flicker.
 
 4) Reliability and resilience
-- Feature flag retry: Before declaring a PostHog flag failure, retry once after ~500ms; if still unresolved, show the current helpful error block. Risk: low.
-- API input validation: `/api/recent-completions` clamps `limit` (good). Mirror explicit min bound (e.g., floor to 1) for completeness. Risk: low.
+- DONE: Feature flag retry (single 500ms delayed retry before error).
+- TODO: Explicit min bound on `/api/recent-completions?limit` (ensure floor >=1).
 
 5) Analytics depth (optional nicety)
-- Percentiles endpoint: Add `/api/leaderboard-stats` or enrich existing stats with p50/p90 completion times per variant using current views. Useful for dashboard narrative without heavy UI changes. Risk: low.
+- TODO: Percentiles (p50/p90) endpoint or enrich variant stats for deeper performance narrative.
 
 Estimated impact summary
-- Network: fewer requests (coalesced stats) and tighter CORS
-- JS hygiene: -50 to -100 LOC across `public/js` from dead code and utility extraction (≈6–10% within that folder), reduced confusion surface
-- UX clarity: consistent copy and IDs prevent rare bugs
+- Network: -1 request / refresh cycle (stats+comparison merge) → lighter polling.
+- JS hygiene: ~40+ LOC reduction (dead code + helper extraction). Further small wins possible.
+- UX clarity: consistent variant labeling (pineapples), improved readability.
 
 If you want, I can start with the JS audit cleanups first (dead code removal, duplicate ID fix, feature flag retry). That’s the safest set with immediate LOC and clarity wins.
 

@@ -1,15 +1,7 @@
 const FEATURE_FLAG_KEY = 'word_search_difficulty_v2';
 
-const $ = (id) => document.getElementById(id);
-const show = (...ids) => ids.forEach(id => $(id).classList.remove('hidden'));
-const hide = (...ids) => ids.forEach(id => $(id).classList.add('hidden'));
-const toggle = (id, show) => $(id).classList.toggle('hidden', !show);
-const formatTime = (ms) => {
-  const m = Math.floor(ms / 60000);
-  const s = Math.floor((ms % 60000) / 1000);
-  const ms2 = Math.floor((ms % 1000) / 10);
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}:${String(ms2).padStart(2, '0')}`;
-};
+// DOM helpers (now loaded globally from utils.js)
+// $ show hide toggle formatTime
 
 const generateUsername = () => {
   // Use the global function from username-generator.js module
@@ -21,16 +13,13 @@ const generateUsername = () => {
 };
 
 let puzzleState = {
-  variant: null, 
+  variant: null,
   puzzleConfig: null, // Store the selected puzzle configuration
-  startTime: null, 
-  isRunning: false, 
-  guessedWords: [], 
-  foundWords: [], 
-  timerInterval: null, 
+  startTime: null,
+  isRunning: false,
+  timerInterval: null,
   completionTime: null,
   // Memory game specific state
-  memorizeTime: 5000, // 5 seconds to memorize
   isMemorizing: false,
   foundPineapples: [],
   totalClicks: 0,
@@ -38,13 +27,27 @@ let puzzleState = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Wait for PostHog feature flags to load before initializing
+  // Wait for PostHog feature flags; add a single retry before erroring
   if (typeof posthog !== 'undefined' && posthog.onFeatureFlags) {
     posthog.onFeatureFlags(() => {
-      initializeVariant();
-      displayVariant();
-      setupPuzzle();
-      updateLeaderboard();
+      const ok = initializeVariant();
+      if (ok) {
+        displayVariant();
+        setupPuzzle();
+        updateLeaderboard();
+      } else {
+        setTimeout(() => {
+          const okRetry = initializeVariant();
+          if (okRetry) {
+            displayVariant();
+            setupPuzzle();
+            updateLeaderboard();
+          } else {
+            console.error('PostHog feature flag not resolved after retry.');
+            showFeatureFlagError();
+          }
+        }, 500);
+      }
     });
   } else {
     // PostHog not loaded - show error
@@ -55,18 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const initializeVariant = () => {
   // Get variant from PostHog feature flag
+  if (typeof posthog === 'undefined') return false;
   const posthogVariant = posthog.getFeatureFlag(FEATURE_FLAG_KEY);
 
-  let variant;
+  let variant = null;
   if (posthogVariant === '4-words') {
     variant = 'B';  // 4 words = Variant B
   } else if (posthogVariant === 'control') {
     variant = 'A';  // control = Variant A (3 words)
   } else {
-    // Feature flag not loaded - show error and stop
-    console.error('PostHog feature flag not resolved. Received:', posthogVariant);
-    showFeatureFlagError();
-    return;
+    // Feature flag not resolved yet
+    return false;
   }
 
   localStorage.setItem('simulator_variant', variant);
@@ -77,12 +79,13 @@ const initializeVariant = () => {
   if (!localStorage.getItem('simulator_username')) {
     const username = generateUsername();
     localStorage.setItem('simulator_username', username);
-    
     // Identify user in PostHog with their username
-    if (typeof posthog !== 'undefined') {
+    if (typeof posthog !== 'undefined' && posthog.identify) {
       posthog.identify(username);
     }
   }
+
+  return true;
 };
 
 const showFeatureFlagError = () => {
@@ -161,7 +164,7 @@ const setupPuzzle = () => {
   
   $('start-button').addEventListener('click', startChallenge);
   $('reset-button').addEventListener('click', resetPuzzle);
-  $('try-again-inline-button').addEventListener('click', resetPuzzle);
+  document.querySelectorAll('.try-again-button').forEach(btn => btn.addEventListener('click', resetPuzzle));
   
   // Add click handlers for memory tiles
   document.querySelectorAll('.memory-tile').forEach(tile => {
@@ -172,8 +175,7 @@ const setupPuzzle = () => {
 const startChallenge = () => {
   puzzleState.isRunning = true;
   puzzleState.isMemorizing = true;
-  puzzleState.guessedWords = [];
-  puzzleState.foundWords = [];
+  // Reset per-run collections
   puzzleState.foundPineapples = [];
   puzzleState.totalClicks = 0;
   puzzleState.gridState = Array(5).fill(null).map(() => Array(5).fill(false));
@@ -276,7 +278,7 @@ const handleTileClick = (event) => {
     tile.querySelector('.fruit-emoji').classList.add('opacity-100', 'scale-100');
     
     // Update found count display
-    $('found-words-list').textContent = `${puzzleState.foundPineapples.length}/${puzzleState.puzzleConfig.targetCount}`;
+    $('found-pineapples-list').textContent = `${puzzleState.foundPineapples.length}/${puzzleState.puzzleConfig.targetCount}`;
     
     // Check if all pineapples found
     if (puzzleState.foundPineapples.length === puzzleState.puzzleConfig.targetCount) {
@@ -300,10 +302,7 @@ const handleTileClick = (event) => {
   }
 };
 
-const updateFoundWordsList = () => {
-  const list = puzzleState.foundWords.join(', ');
-  document.getElementById('found-words-list').textContent = list || '(none yet)';
-};
+// Removed legacy word-search support function (updateFoundWordsList)
 
 const endChallenge = async (success) => {
   puzzleState.isRunning = false;
@@ -311,9 +310,9 @@ const endChallenge = async (success) => {
   puzzleState.completionTime = success ? Date.now() - puzzleState.startTime : 60000;
   
   // Hide everything challenge-related, show result
-  $('input-section').classList.add('hidden');
+  // Removed legacy input-section (word search mechanic)
   $('reset-button').classList.add('hidden');
-  $('try-again-inline-button').classList.remove('hidden');
+  document.querySelectorAll('.try-again-button').forEach(btn => btn.classList.remove('hidden'));
   $('result-card').classList.remove('hidden');
   
   const statusBadge = $('result-card').querySelector('.inline-flex');
@@ -324,6 +323,7 @@ const endChallenge = async (success) => {
     const isPersonalBest = updateLeaderboard(puzzleState.completionTime, puzzleState.variant);
     $('result-time').textContent = formatTime(puzzleState.completionTime);
     $('result-guesses').textContent = puzzleState.totalClicks;
+  $('result-guesses').textContent = puzzleState.totalClicks;
     $('result-message').innerHTML = isPersonalBest ? '🏆 Personal Best!' : '✓ Complete!';
     
     // Green success styling
@@ -358,15 +358,14 @@ const resetPuzzle = (isRepeat = false) => {
   puzzleState.isRunning = false;
   clearInterval(puzzleState.timerInterval);
   puzzleState.startTime = null;
-  puzzleState.guessedWords = [];
-  puzzleState.foundWords = [];
+  // Reset state collections
   puzzleState.foundPineapples = [];
   puzzleState.totalClicks = 0;
   puzzleState.gridState = [];
   puzzleState.completionTime = null;
   
   $('timer').textContent = '00:60:00';
-  $('found-words-list').textContent = '(none yet)';
+  $('found-pineapples-list').textContent = '0';
   
   // Reset grid tiles
   document.querySelectorAll('.memory-tile').forEach(tile => {
@@ -381,7 +380,7 @@ const resetPuzzle = (isRepeat = false) => {
   $('reset-button').classList.add('hidden');
   $('memorize-message').classList.add('hidden');
   $('countdown-timer').classList.add('hidden');
-  $('try-again-inline-button').classList.add('hidden');
+  document.querySelectorAll('.try-again-button').forEach(btn => btn.classList.add('hidden'));
   $('result-card').classList.add('hidden');
   
   if (isRepeat) trackEvent('puzzle_repeated', {});

@@ -2,7 +2,9 @@
 (function initDashboard() {
 	if (typeof Plotly === 'undefined') return setTimeout(initDashboard, 100);
 
-	const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:8000' : 'https://soma-analytics.fly.dev';
+	const host = window.location.hostname;
+	const isLocal = host === 'localhost' || host === '127.0.0.1';
+	const API_URL = isLocal ? 'http://localhost:8000' : 'https://soma-analytics.fly.dev';
 	const colors = { variantA: '#e5e3e0ff', variantB: '#f5a656ff' };
 	const chartConfig = { responsive: true, displayModeBar: false };
 
@@ -41,10 +43,10 @@
 		
 		if (diff > 0) {
 			// B is harder (takes longer)
-			statusText.textContent = '4-words variant seems to be harder';
+			statusText.textContent = '5-pineapples variant seems to be harder';
 		} else if (diff < 0) {
 			// A is harder (takes longer)
-			statusText.textContent = '3-words variant seems to be harder';
+			statusText.textContent = '4-pineapples variant seems to be harder';
 		} else {
 			statusText.textContent = 'Both variants are equal';
 		}
@@ -143,18 +145,17 @@
 
 	async function updateDashboard() {
 		try {
-			const [stats, comparison, funnel, completions, distribution] = await Promise.all([
-				fetch(`${API_URL}/api/variant-stats`).then(r => r.json()),
-				fetch(`${API_URL}/api/comparison`).then(r => r.json()),
+			const [overview, funnel, completions, distribution] = await Promise.all([
+				fetch(`${API_URL}/api/variant-overview`).then(r => r.json()),
 				fetch(`${API_URL}/api/conversion-funnel`).then(r => r.json()),
 				fetch(`${API_URL}/api/recent-completions?limit=50`).then(r => r.json()),
 				fetch(`${API_URL}/api/time-distribution`).then(r => r.json())
 			]);
 
 			const theme = getPlotlyTheme();
-			renderComparison(comparison);
+			renderComparison(overview.comparison);
 			renderFunnelChart(funnel, theme);
-			renderAvgTimeChart(stats, theme);
+			renderAvgTimeChart(overview.stats, theme);
 			renderDistributionChart(distribution, theme);
 			renderCompletionsTable(completions, theme);
 

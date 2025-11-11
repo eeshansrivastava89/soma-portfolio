@@ -54,7 +54,7 @@ import PageLayout from '../../layouts/BaseLayout.astro'
 						<div id="controls" class="flex flex-row gap-2">
 							<button id="start-button" class="flex-1 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Start</button>
 							<button id="reset-button" class="hidden flex-1 rounded-lg bg-secondary px-3 py-2 text-sm font-medium text-secondary-foreground hover:bg-secondary/80 transition-colors">Stop</button>
-							<button id="try-again-inline-button" class="hidden flex-1 rounded-lg bg-orange-600 px-3 py-2 text-sm font-medium text-white hover:bg-orange-700 transition-colors">Try Again</button>
+							<button class="try-again-button hidden flex-1 rounded-lg bg-orange-600 px-3 py-2 text-sm font-medium text-white hover:bg-orange-700 transition-colors">Try Again</button>
 						</div>
 						
 						<!-- Timer -->
@@ -78,16 +78,10 @@ import PageLayout from '../../layouts/BaseLayout.astro'
 						</div>
 					</div>
 
-					<!-- Input Box (hidden until started) -->
-					<div id="input-section" class="hidden space-y-2">
-						<label for="word-input" class="text-xs font-medium text-muted-foreground">Enter Word</label>
-						<input type="text" id="word-input" placeholder="Type a word..." autocomplete="off" class="w-full rounded-lg border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
-					</div>
-
-					<!-- Found Words -->
-					<div id="found-words" class="rounded-lg bg-muted p-3">
+					<!-- Pineapples Found -->
+					<div id="found-pineapples" class="rounded-lg bg-muted p-3">
 						<div class="text-xs text-muted-foreground mb-2">Pineapples Found</div>
-						<div id="found-words-list" class="font-mono text-sm">0</div>
+						<div id="found-pineapples-list" class="font-mono text-sm">0</div>
 					</div>
 				</div>
 
@@ -126,7 +120,7 @@ import PageLayout from '../../layouts/BaseLayout.astro'
 
 				<!-- Right: Actions -->
 				<div class="flex gap-2">
-					<button id="try-again-inline-button" class="hidden rounded-lg bg-orange-600 px-4 py-2 text-sm font-medium text-white hover:bg-orange-700 transition-colors">Try Again</button>
+					<button class="try-again-button hidden rounded-lg bg-orange-600 px-4 py-2 text-sm font-medium text-white hover:bg-orange-700 transition-colors">Try Again</button>
 					<a href="#dashboard-section" class="rounded-lg bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground hover:bg-secondary/80 transition-colors">View Stats</a>
 				</div>
 			</div>
@@ -151,7 +145,7 @@ import PageLayout from '../../layouts/BaseLayout.astro'
 					<div class="space-y-3">
 						<div class="flex items-center gap-2">
 							<div class="flex items-center justify-center w-6 h-6 rounded text-black text-xs font-bold" style="background-color: #f9e9ccff;">A</div>
-							<div class="text-sm font-semibold">Control (3 words)</div>
+							<div class="text-sm font-semibold">Control (4 pineapples)</div>
 						</div>
 						<div>
 							<div class="text-xs text-muted-foreground">Total Completions</div>
@@ -167,7 +161,7 @@ import PageLayout from '../../layouts/BaseLayout.astro'
 					<div class="space-y-3">
 						<div class="flex items-center gap-2">
 							<div class="flex items-center justify-center w-6 h-6 rounded text-black text-xs font-bold" style="background-color: #f5a656ff;">B</div>
-							<div class="text-sm font-semibold">Treatment (4 words)</div>
+							<div class="text-sm font-semibold">Treatment (5 pineapples)</div>
 						</div>
 						<div>
 							<div class="text-xs text-muted-foreground">Total Completions</div>
@@ -222,6 +216,7 @@ import PageLayout from '../../layouts/BaseLayout.astro'
 		</div>
 
 		<script src="https://cdn.plot.ly/plotly-2.27.0.min.js" is:inline></script>
+		<script src="/js/utils.js" is:inline></script>
 		<script src="/js/puzzle-config.js" is:inline></script>
 		<script src="/js/dashboard.js" is:inline></script>
 	</div>
@@ -232,7 +227,7 @@ import PageLayout from '../../layouts/BaseLayout.astro'
 import { uniqueNamesGenerator, adjectives, animals } from 'unique-names-generator';
 
 // Export to global window for use by ab-simulator.js
-window.generateRandomUsername = function() {
+(window as any).generateRandomUsername = function() {
   return uniqueNamesGenerator({
     dictionaries: [adjectives, animals],
     separator: ' ',
