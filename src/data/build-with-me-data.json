@@ -6,10 +6,27 @@
       "phase": "Active",
       "openTasks": 0,
       "claimed": 1,
-      "mergedThisWeek": 0
+      "mergedThisWeek": 1,
+      "highlight": "1 tasks merged"
     }
   ],
   "tasks": [
+    {
+      "id": "2",
+      "title": "Migrate to monorepo architecture with pnpm workspaces",
+      "projectSlug": "ab-sim",
+      "category": [
+        "wiring"
+      ],
+      "status": "merged",
+      "difficulty": "hard",
+      "labels": [
+        "cat:wiring",
+        "diff:hard",
+        "project:ab-sim"
+      ],
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/2"
+    },
     {
       "id": "1",
       "title": "create build with me page instead of projects",
@@ -47,5 +64,6 @@
       "reviews": 0,
       "docs": 0
     }
-  ]
+  ],
+  "lastFetchTime": "2025-11-24T18:03:07.898Z"
 }

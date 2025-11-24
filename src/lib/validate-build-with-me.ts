@@ -44,6 +44,7 @@ export interface BuildWithMeData {
 	tasks: Task[]
 	hats: Hat[]
 	leaderboard: LeaderboardEntry[]
+	lastFetchTime?: string
 }
 
 export function validateBuildWithMeData(data: unknown): BuildWithMeData | null {

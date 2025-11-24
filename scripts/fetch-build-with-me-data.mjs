@@ -201,7 +201,8 @@ const main = async () => {
 			cycles,
 			tasks,
 			hats,
-			leaderboard
+			leaderboard,
+			lastFetchTime: new Date().toISOString()
 		}
 
 		fs.writeFileSync(OUTPUT_PATH, JSON.stringify(payload, null, 2))
