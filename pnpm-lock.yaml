@@ -167,7 +167,7 @@ importers:
         specifier: ^3.4.18
         version: 3.4.18(yaml@2.8.1)
 
-  packages/build-with-me:
+  packages/build-log:
     dependencies:
       '@astrojs/react':
         specifier: ^4.4.2

@@ -1,10 +1,10 @@
 // Client-side GitHub data refresh (no auth, 60 req/hr limit)
-import type { Task, Contributor } from './validate-build-with-me'
+import type { Task, Contributor } from './validate-build-log'
 import {
 	LABEL_CATEGORY_MAP,
 	LABEL_DIFFICULTY_MAP,
 	LABEL_PROJECT_MAP
-} from '../data/build-with-me-config'
+} from '../data/build-log-config'
 
 const REPO_OWNER = 'eeshansrivastava89'
 const REPO_NAME = 'soma-portfolio'

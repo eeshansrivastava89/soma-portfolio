@@ -4,15 +4,15 @@ import TasksView from './TasksView'
 import ContributorCards from './ContributorCards'
 import ActivityFeed from './ActivityFeed'
 import { refreshGitHubData } from '../lib/github-refresh'
-import type { Task, Contributor, ActivityItem } from '../lib/validate-build-with-me'
+import type { Task, Contributor, ActivityItem } from '../lib/validate-build-log'
 
-interface BuildWithMeViewProps {
+interface BuildLogViewProps {
 	tasks: Task[]
 	contributors: Contributor[]
 	recentActivity: ActivityItem[]
 }
 
-export default function BuildWithMeView({
+export default function BuildLogView({
 	tasks: initialTasks,
 	contributors: initialContributors,
 	recentActivity: initialActivity,

@@ -1,5 +1,5 @@
 import { Users, ExternalLink } from 'lucide-react'
-import type { Contributor, Task } from '../lib/validate-build-with-me'
+import type { Contributor, Task } from '../lib/validate-build-log'
 
 interface ContributorCardsProps {
 	contributors: Contributor[]

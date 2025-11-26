@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Filter, X } from 'lucide-react'
-import type { Category, Status } from '../data/build-with-me-config'
-import { CATEGORY_STYLES, STATUS_STYLES } from '../data/build-with-me-config'
+import type { Category, Status } from '../data/build-log-config'
+import { CATEGORY_STYLES, STATUS_STYLES } from '../data/build-log-config'
 
 interface FilterPanelProps {
 	selectedCategories: Category[]

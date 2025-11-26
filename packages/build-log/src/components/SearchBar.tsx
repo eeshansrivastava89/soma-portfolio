@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Fuse from 'fuse.js'
 import { Search, X } from 'lucide-react'
-import type { Task } from '../lib/validate-build-with-me'
+import type { Task } from '../lib/validate-build-log'
 
 interface SearchBarProps {
 	tasks: Task[]

@@ -23,3 +23,12 @@ applyTo: '**'
 - **Brutally minimal documentation** - don't create new md files unless asked for
 
 - **End of task metric** - calculate what % of lines of code were added / removed - be precise
+
+User's Workflow:
+* ideate with the AI assistant on UX, backend, frontend, data science 
+* think through architecture before planning todos
+* plan out and document the todos and tasks in one of the existing md files or ask user
+* create github issues for these tasks - ask user first
+* execute tasks
+* verify locally and approach chunk by chunk
+* commit & push + close out github issues - ask user first

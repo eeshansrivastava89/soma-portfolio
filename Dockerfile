@@ -61,6 +61,11 @@ RUN echo 'server { \
     location /ab-simulator/ { \
         try_files $uri $uri/ /ab-simulator/index.html; \
     } \
+    \
+    # Build Log subpath \
+    location /build-log/ { \
+        try_files $uri $uri/ /build-log/index.html; \
+    } \
 }' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080

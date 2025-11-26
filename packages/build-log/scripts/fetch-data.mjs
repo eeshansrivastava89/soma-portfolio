@@ -8,7 +8,7 @@ import {
 	LABEL_DIFFICULTY_MAP,
 	LABEL_PROJECT_MAP,
 	getProjectName
-} from '../src/data/build-with-me-config.js'
+} from '../src/data/build-log-config.js'
 
 // Load .env from monorepo root
 dotenv.config({ path: path.join(process.cwd(), '../../.env') })
@@ -16,18 +16,18 @@ dotenv.config({ path: path.join(process.cwd(), '../../.env') })
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER || 'eeshansrivastava89'
 const REPO_NAME = process.env.GITHUB_REPO_NAME || 'soma-portfolio'
-const OUTPUT_PATH = path.join(process.cwd(), 'src', 'data', 'build-with-me-data.json')
+const OUTPUT_PATH = path.join(process.cwd(), 'src', 'data', 'build-log-data.json')
 
 if (!GITHUB_TOKEN) {
-	console.warn('⚠️  GITHUB_TOKEN not set - skipping Build With Me data fetch')
-	console.warn('   Using existing data from src/data/build-with-me-data.json')
+	console.warn('⚠️  GITHUB_TOKEN not set - skipping Build Log data fetch')
+	console.warn('   Using existing data from src/data/build-log-data.json')
 	process.exit(0)
 }
 
 const headers = {
 	Accept: 'application/vnd.github+json',
 	Authorization: `Bearer ${GITHUB_TOKEN}`,
-	'User-Agent': 'build-with-me-fetch'
+	'User-Agent': 'build-log-fetch'
 }
 
 const fetchJson = async (url) => {

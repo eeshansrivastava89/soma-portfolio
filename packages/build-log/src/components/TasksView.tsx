@@ -3,8 +3,8 @@ import { Sparkles, Clock, CircleDot } from 'lucide-react'
 import TasksTable from './TasksTable'
 import SearchBar from './SearchBar'
 import FilterPanel from './FilterPanel'
-import type { Task } from '../lib/validate-build-with-me'
-import type { Category, Status } from '../data/build-with-me-config'
+import type { Task } from '../lib/validate-build-log'
+import type { Category, Status } from '../data/build-log-config'
 
 interface TasksViewProps {
 	tasks: Task[]

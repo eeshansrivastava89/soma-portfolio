@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { GitMerge, UserPlus, GitPullRequest, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
-import type { ActivityItem } from '../lib/validate-build-with-me'
+import type { ActivityItem } from '../lib/validate-build-log'
 
 interface ActivityFeedProps {
 	activities: ActivityItem[]

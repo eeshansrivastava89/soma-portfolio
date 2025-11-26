@@ -1,16 +1,16 @@
 ---
 import SiteLayout from '../../../shared/src/layouts/SiteLayout.astro'
-import BuildWithMeView from '../components/BuildWithMeView'
+import BuildLogView from '../components/BuildLogView'
 import StartHereGuide from '../components/StartHereGuide'
 import VideoModal from '../components/VideoModal'
-import { validateBuildWithMeData } from '../lib/validate-build-with-me'
+import { validateBuildLogData } from '../lib/validate-build-log'
 
 // Data source (overwritten by fetch script). Keep defaults for local preview.
-import buildWithMeData from '../data/build-with-me-data.json'
+import buildLogData from '../data/build-log-data.json'
 
-const validatedData = validateBuildWithMeData(buildWithMeData)
+const validatedData = validateBuildLogData(buildLogData)
 if (!validatedData) {
-	throw new Error('Invalid build-with-me-data.json. Run: npm run fetch:build-with-me')
+	throw new Error('Invalid build-log-data.json. Run: npm run fetch:data')
 }
 
 const { tasks, contributors, recentActivity } = validatedData
@@ -21,18 +21,18 @@ const mergedCount = tasks.filter(t => t.status === 'merged').length
 const openCount = tasks.filter(t => t.status === 'open').length
 ---
 
-<SiteLayout meta={{ title: 'Build with Me' }}>
+<SiteLayout meta={{ title: 'The Build Log' }}>
 	<div class='w-full space-y-8'>
 		<!-- Start Here Guide for new contributors -->
 		<StartHereGuide client:load />
 
 		<section class='space-y-4'>
-			<p class='text-xs font-semibold uppercase tracking-[0.3em] text-primary'>Build with Me</p>
+			<p class='text-xs font-semibold uppercase tracking-[0.3em] text-primary'>The Build Log</p>
 			
 			<!-- Hero: Left content + Right video -->
 			<div class='grid gap-6 lg:grid-cols-[1fr_320px]'>
 				<div class='space-y-4'>
-					<h1 class='text-2xl font-bold text-foreground sm:text-4xl'>Ship Real Code. Build Your Portfolio.</h1>
+					<h1 class='text-2xl font-bold text-foreground sm:text-4xl'>Learn AI-Native Data Science. Ship Real Products & Analyze Data. Build Your Portfolio.</h1>
 					<p class='max-w-2xl text-base text-muted-foreground'>
 						Claim a task, open a PR, get code review, and ship. Real projects, real GitHub history, zero cost.
 					</p>
@@ -62,7 +62,7 @@ const openCount = tasks.filter(t => t.status === 'open').length
 
 		</section>
 
-		<BuildWithMeView tasks={tasks} contributors={contributors} recentActivity={recentActivity} client:load />
+		<BuildLogView tasks={tasks} contributors={contributors} recentActivity={recentActivity} client:load />
 
 		<section id='how-to' class='grid gap-4 lg:grid-cols-[2fr_1fr]'>
 			<div class='rounded-2xl border border-border bg-primary-foreground p-4 shadow-lg shadow-black/5'>

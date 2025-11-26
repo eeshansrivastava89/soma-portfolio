@@ -1,4 +1,4 @@
-import type { Category, Status, Difficulty } from '../data/build-with-me-config'
+import type { Category, Status, Difficulty } from '../data/build-log-config'
 
 export interface Task {
 	id: string
@@ -55,7 +55,7 @@ export interface ActivityItem {
 	githubUrl: string
 }
 
-export interface BuildWithMeData {
+export interface BuildLogData {
 	cycles: Cycle[]
 	tasks: Task[]
 	hats: Hat[]
@@ -64,7 +64,7 @@ export interface BuildWithMeData {
 	lastFetchTime?: string
 }
 
-export function validateBuildWithMeData(data: unknown): BuildWithMeData | null {
+export function validateBuildLogData(data: unknown): BuildLogData | null {
 	if (!data || typeof data !== 'object') {
 		console.error('❌ Invalid data: not an object')
 		return null

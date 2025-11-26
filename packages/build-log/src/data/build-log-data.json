@@ -4,16 +4,160 @@
       "slug": "ab-sim",
       "name": "A/B Simulator",
       "phase": "Active",
-      "openTasks": 1,
-      "claimed": 3,
-      "mergedThisWeek": 17,
-      "highlight": "17 tasks merged"
+      "openTasks": 7,
+      "claimed": 2,
+      "mergedThisWeek": 18,
+      "highlight": "18 tasks merged"
     }
   ],
   "tasks": [
     {
+      "id": "27",
+      "title": "Hero copy update: \"The Build Log\" framing",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "open",
+      "difficulty": "easy",
+      "labels": [
+        "enhancement",
+        "cat:frontend",
+        "diff:easy",
+        "hours:1-2",
+        "project:build-with-me"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/27",
+      "updatedAt": "2025-11-26T18:55:18Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "26",
+      "title": "Add \"Current Projects\" section to Build Log",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "open",
+      "difficulty": "easy",
+      "labels": [
+        "enhancement",
+        "cat:frontend",
+        "diff:easy",
+        "hours:1-2",
+        "project:build-with-me"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/26",
+      "updatedAt": "2025-11-26T18:55:06Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "25",
+      "title": "Add \"Latest Learnings\" section to Build Log",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "open",
+      "difficulty": "easy",
+      "labels": [
+        "enhancement",
+        "cat:frontend",
+        "diff:easy",
+        "hours:1-2",
+        "project:build-with-me"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/25",
+      "updatedAt": "2025-11-26T18:54:56Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "24",
+      "title": "Build Log page reframe: 80/20 layout restructure",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "open",
+      "difficulty": "medium",
+      "labels": [
+        "enhancement",
+        "cat:frontend",
+        "diff:medium",
+        "hours:3-5",
+        "project:build-with-me"
+      ],
+      "skills": [],
+      "estimatedHours": "3-5",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/24",
+      "updatedAt": "2025-11-26T18:54:46Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "23",
+      "title": "Route rename: /build-with-me/ → /build-log/",
+      "projectSlug": "ab-sim",
+      "category": [
+        "wiring"
+      ],
+      "status": "open",
+      "difficulty": "easy",
+      "labels": [
+        "enhancement",
+        "cat:wiring",
+        "diff:easy",
+        "hours:1-2",
+        "project:build-with-me"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/23",
+      "updatedAt": "2025-11-26T18:54:32Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "22",
+      "title": "build with me -> add project to the open work table",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "open",
+      "labels": [
+        "project:build-with-me"
+      ],
+      "skills": [],
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/22",
+      "updatedAt": "2025-11-25T18:04:30Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
       "id": "21",
-      "title": "Refactor: Migrate fetch-data.mjs to unified GraphQL API",
+      "title": "build with me -> Refactor: Migrate fetch-data.mjs to unified GraphQL API",
       "projectSlug": "ab-sim",
       "category": [
         "backend",
@@ -31,7 +175,7 @@
       "estimatedHours": "6+",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/21",
-      "updatedAt": "2025-11-25T17:28:57Z",
+      "updatedAt": "2025-11-25T17:57:24Z",
       "closedAt": null,
       "startDate": "2025-12-01",
       "targetDate": "2025-12-06"
@@ -44,7 +188,7 @@
         "frontend",
         "backend"
       ],
-      "status": "claimed",
+      "status": "merged",
       "difficulty": "easy",
       "assignees": [
         {
@@ -52,6 +196,10 @@
           "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
         }
       ],
+      "closedBy": {
+        "name": "eeshansrivastava89",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+      },
       "labels": [
         "cat:frontend",
         "cat:backend",
@@ -60,8 +208,8 @@
       "skills": [],
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/20",
-      "updatedAt": "2025-11-25T17:24:29Z",
-      "closedAt": null,
+      "updatedAt": "2025-11-25T17:53:19Z",
+      "closedAt": "2025-11-25T17:53:19Z",
       "startDate": null,
       "targetDate": null
     },
@@ -117,12 +265,9 @@
       },
       "labels": [
         "cat:frontend",
-        "learn:react",
         "hours:3-5"
       ],
-      "skills": [
-        "react"
-      ],
+      "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/18",
@@ -133,7 +278,7 @@
     },
     {
       "id": "17",
-      "title": "create architecture doc page per project",
+      "title": "portfolio -> create architecture doc page per project",
       "projectSlug": "ab-sim",
       "category": [
         "docs"
@@ -153,7 +298,7 @@
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/17",
-      "updatedAt": "2025-11-25T17:14:57Z",
+      "updatedAt": "2025-11-25T17:57:09Z",
       "closedAt": null,
       "startDate": "2025-11-26",
       "targetDate": "2025-11-28"
@@ -237,12 +382,9 @@
         "cat:frontend",
         "diff:medium",
         "project:ab-sim",
-        "learn:astro",
         "hours:3-5"
       ],
-      "skills": [
-        "astro"
-      ],
+      "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/14",
@@ -274,12 +416,9 @@
         "cat:frontend",
         "diff:medium",
         "project:ab-sim",
-        "learn:react",
         "hours:3-5"
       ],
-      "skills": [
-        "react"
-      ],
+      "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/13",
@@ -311,14 +450,9 @@
         "cat:frontend",
         "diff:hard",
         "project:ab-sim",
-        "learn:react",
-        "learn:tailwind",
         "hours:6+"
       ],
-      "skills": [
-        "react",
-        "tailwind"
-      ],
+      "skills": [],
       "estimatedHours": "6+",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/12",
@@ -350,12 +484,9 @@
         "cat:wiring",
         "diff:hard",
         "project:ab-sim",
-        "learn:git",
         "hours:6+"
       ],
-      "skills": [
-        "git"
-      ],
+      "skills": [],
       "estimatedHours": "6+",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/11",
@@ -387,14 +518,9 @@
         "cat:frontend",
         "diff:hard",
         "project:ab-sim",
-        "learn:react",
-        "learn:astro",
         "hours:6+"
       ],
-      "skills": [
-        "react",
-        "astro"
-      ],
+      "skills": [],
       "estimatedHours": "6+",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/10",
@@ -426,14 +552,9 @@
         "cat:analytics",
         "diff:medium",
         "project:ab-sim",
-        "learn:python",
-        "learn:sql",
         "hours:3-5"
       ],
-      "skills": [
-        "python",
-        "sql"
-      ],
+      "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/9",
@@ -465,12 +586,9 @@
         "cat:frontend",
         "diff:hard",
         "project:ab-sim",
-        "learn:typescript",
         "hours:6+"
       ],
-      "skills": [
-        "typescript"
-      ],
+      "skills": [],
       "estimatedHours": "6+",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/8",
@@ -502,12 +620,9 @@
         "cat:wiring",
         "diff:medium",
         "project:ab-sim",
-        "learn:git",
         "hours:3-5"
       ],
-      "skills": [
-        "git"
-      ],
+      "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/7",
@@ -539,12 +654,9 @@
         "cat:backend",
         "diff:hard",
         "project:ab-sim",
-        "learn:sql",
         "hours:6+"
       ],
-      "skills": [
-        "sql"
-      ],
+      "skills": [],
       "estimatedHours": "6+",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/6",
@@ -576,12 +688,9 @@
         "cat:frontend",
         "diff:hard",
         "project:ab-sim",
-        "learn:react",
         "hours:6+"
       ],
-      "skills": [
-        "react"
-      ],
+      "skills": [],
       "estimatedHours": "6+",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/5",
@@ -613,12 +722,9 @@
         "cat:frontend",
         "diff:medium",
         "project:ab-sim",
-        "learn:react",
         "hours:3-5"
       ],
-      "skills": [
-        "react"
-      ],
+      "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/4",
@@ -650,12 +756,9 @@
         "cat:wiring",
         "diff:medium",
         "project:ab-sim",
-        "learn:typescript",
         "hours:3-5"
       ],
-      "skills": [
-        "typescript"
-      ],
+      "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/3",
@@ -712,14 +815,9 @@
         "enhancement",
         "good first issue",
         "cat:frontend",
-        "learn:react",
-        "learn:astro",
         "hours:3-5"
       ],
-      "skills": [
-        "react",
-        "astro"
-      ],
+      "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": true,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/1",
@@ -736,7 +834,7 @@
         "frontend",
         "backend"
       ],
-      "status": "claimed"
+      "status": "merged"
     },
     {
       "name": "eeshansrivastava89",
@@ -870,7 +968,7 @@
     {
       "name": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "mergedPRs": 16,
+      "mergedPRs": 17,
       "reviews": 0,
       "recentActivityCount": 10
     }
@@ -878,21 +976,21 @@
   "recentActivity": [
     {
       "type": "claimed",
+      "taskId": "17",
+      "taskTitle": "portfolio -> create architecture doc page per project",
+      "user": "eeshansrivastava89",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
+      "timestamp": "2025-11-25T17:57:09Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/17"
+    },
+    {
+      "type": "merged",
       "taskId": "20",
       "taskTitle": "build with me -> open work table -> make the table for \"open\" items only",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-25T17:24:29Z",
+      "timestamp": "2025-11-25T17:53:19Z",
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/20"
-    },
-    {
-      "type": "claimed",
-      "taskId": "17",
-      "taskTitle": "create architecture doc page per project",
-      "user": "eeshansrivastava89",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-25T17:14:57Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/17"
     },
     {
       "type": "claimed",
@@ -967,5 +1065,5 @@
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/12"
     }
   ],
-  "lastFetchTime": "2025-11-25T17:48:26.432Z"
+  "lastFetchTime": "2025-11-26T19:12:25.717Z"
 }

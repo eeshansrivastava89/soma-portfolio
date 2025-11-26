@@ -25,7 +25,7 @@ export default function VideoModal({
 			>
 				<img
 					src={thumbnailUrl}
-					alt='Watch how Build with Me works'
+					alt='Watch how The Build Log works'
 					className='h-full w-full object-cover opacity-80 transition group-hover:scale-105 group-hover:opacity-100'
 				/>
 				{/* Play button overlay */}

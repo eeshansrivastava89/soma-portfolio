@@ -1,5 +1,5 @@
 // Plain JS version for Node scripts (fetch-data.mjs)
-// Keep in sync with build-with-me-config.ts
+// Keep in sync with build-log-config.ts
 
 export const CATEGORY_STYLES = {
 	frontend: 'bg-cyan-100 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-500/30',

@@ -9,8 +9,8 @@ export default defineConfig({
 			applyBaseStyles: false
 		})
 	],
-	base: '/build-with-me',
-	outDir: '../../dist/build-with-me',
+	base: '/build-log',
+	outDir: '../../dist/build-log',
 	publicDir: 'public',
 	build: {
 		format: 'directory'

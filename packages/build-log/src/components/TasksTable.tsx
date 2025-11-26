@@ -11,8 +11,8 @@ import {
 	type ColumnFiltersState
 } from '@tanstack/react-table'
 import { ArrowUpDown, ExternalLink, Clock, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
-import type { Task } from '../lib/validate-build-with-me'
-import { CATEGORY_STYLES, STATUS_STYLES } from '../data/build-with-me-config'
+import type { Task } from '../lib/validate-build-log'
+import { CATEGORY_STYLES, STATUS_STYLES } from '../data/build-log-config'
 
 const DEFAULT_PAGE_SIZE = 5
 
