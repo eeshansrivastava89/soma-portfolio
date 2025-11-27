@@ -4,6 +4,74 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Rotating border beam animation for Build Log nav link */
+@keyframes border-beam {
+	0% {
+		--angle: 0deg;
+	}
+	100% {
+		--angle: 360deg;
+	}
+}
+
+@property --angle {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
+}
+
+.border-beam {
+	position: relative;
+	border-radius: 6px;
+	padding: 0.35rem 0.75rem;
+	background: hsl(var(--background));
+	z-index: 0;
+}
+
+.border-beam::before {
+	content: '';
+	position: absolute;
+	inset: -2px;
+	border-radius: 8px;
+	background: conic-gradient(
+		from var(--angle),
+		transparent 0%,
+		transparent 60%,
+		#f97316 70%,
+		#fb923c 78%,
+		white 85%,
+		#fb923c 92%,
+		#f97316 95%,
+		transparent 100%
+	);
+	z-index: -1;
+	animation: border-beam 2.5s linear infinite;
+}
+
+.border-beam::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: 6px;
+	background: hsl(var(--background));
+	z-index: -1;
+}
+
+/* Dark mode: slightly more vibrant orange glow */
+.dark .border-beam::before {
+	background: conic-gradient(
+		from var(--angle),
+		transparent 0%,
+		transparent 60%,
+		#ea580c 70%,
+		#f97316 78%,
+		#fef3c7 85%,
+		#f97316 92%,
+		#ea580c 95%,
+		transparent 100%
+	);
+}
+
 @layer base {
 	:root {
 		--background: 210 33% 99%;

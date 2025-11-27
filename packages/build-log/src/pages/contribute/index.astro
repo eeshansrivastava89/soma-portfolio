@@ -2,6 +2,7 @@
 import SiteLayout from '../../../../shared/src/layouts/SiteLayout.astro'
 import BuildLogView from '../../components/BuildLogView'
 import StartHereGuide from '../../components/StartHereGuide'
+import VideoModal from '../../components/VideoModal'
 import { validateBuildLogData } from '../../lib/validate-build-log'
 
 // Data source (overwritten by fetch script). Keep defaults for local preview.
@@ -31,26 +32,33 @@ const openCount = tasks.filter(t => t.status === 'open').length
 				← Back to Build Log
 			</a>
 			
-			<div class='space-y-4'>
-				<h1 class='text-2xl font-bold text-foreground sm:text-4xl'>Want to Contribute?</h1>
-				<p class='max-w-2xl text-base text-muted-foreground'>
-					Claim a task, open a PR, get code review, and ship. Real projects, real GitHub history. Build your portfolio while helping me build mine.
-				</p>
-				
-				<!-- Stats -->
-				<div class='flex flex-wrap items-center gap-6 text-sm'>
-					<div class='flex items-center gap-1.5'>
-						<span class='text-2xl font-bold text-foreground'>{totalContributors}</span>
-						<span class='text-muted-foreground'>contributors</span>
+			<div class='grid gap-6 lg:grid-cols-[1fr_320px]'>
+				<div class='space-y-4'>
+					<h1 class='text-2xl font-bold text-foreground sm:text-4xl'>Want to Contribute?</h1>
+					<p class='max-w-2xl text-base text-muted-foreground'>
+						Claim a task, open a PR, get code review, and ship. Real projects, real GitHub history. Build your portfolio while helping me build mine.
+					</p>
+					
+					<!-- Stats -->
+					<div class='flex flex-wrap items-center gap-6 text-sm'>
+						<div class='flex items-center gap-1.5'>
+							<span class='text-2xl font-bold text-foreground'>{totalContributors}</span>
+							<span class='text-muted-foreground'>contributors</span>
+						</div>
+						<div class='flex items-center gap-1.5'>
+							<span class='text-2xl font-bold text-emerald-600'>{mergedCount}</span>
+							<span class='text-muted-foreground'>merged</span>
+						</div>
+						<div class='flex items-center gap-1.5'>
+							<span class='text-2xl font-bold text-orange-500'>{openCount}</span>
+							<span class='text-muted-foreground'>open</span>
+						</div>
 					</div>
-					<div class='flex items-center gap-1.5'>
-						<span class='text-2xl font-bold text-emerald-600'>{mergedCount}</span>
-						<span class='text-muted-foreground'>merged</span>
-					</div>
-					<div class='flex items-center gap-1.5'>
-						<span class='text-2xl font-bold text-orange-500'>{openCount}</span>
-						<span class='text-muted-foreground'>open</span>
-					</div>
+				</div>
+
+				<!-- Video: Watch How It Works -->
+				<div class='hidden lg:block'>
+					<VideoModal client:load />
 				</div>
 			</div>
 		</section>

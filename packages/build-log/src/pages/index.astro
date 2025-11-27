@@ -1,6 +1,5 @@
 ---
 import SiteLayout from '../../../shared/src/layouts/SiteLayout.astro'
-import VideoModal from '../components/VideoModal'
 import LearningsTimeline from '../components/LearningsTimeline'
 import ProjectCard from '../../../shared/src/components/ProjectCard.astro'
 import { validateBuildLogData } from '../lib/validate-build-log'
@@ -41,33 +40,26 @@ const openCount = tasks.filter(t => t.status === 'open').length
 		<section class='space-y-4'>
 			<p class='text-xs font-semibold uppercase tracking-[0.3em] text-primary'>The Build Log</p>
 			
-			<div class='grid gap-6 lg:grid-cols-[1fr_320px]'>
-				<div class='space-y-4'>
-					<h1 class='text-2xl font-bold text-foreground sm:text-4xl'>Learning AI-native data science by building products</h1>
-					<p class='max-w-2xl text-base text-muted-foreground'>
-						I'm building full-stack products with AI tools, then doing data science on real user data. Everything is open: the code, the decisions, the mistakes.
-					</p>
-					
-					<!-- CTAs -->
-					<div class='flex flex-wrap gap-3'>
-						<a
-							href='#projects'
-							class='inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-400'
-						>
-							See Current Project
-						</a>
-						<a
-							href='/build-log/contribute/'
-							class='inline-flex items-center gap-2 rounded-full border border-border bg-primary-foreground px-5 py-2.5 text-sm font-medium text-foreground transition hover:-translate-y-0.5 hover:border-foreground/30'
-						>
-							Want to Contribute?
-						</a>
-					</div>
-				</div>
-
-				<!-- Video thumbnail -->
-				<div class='hidden lg:block'>
-					<VideoModal client:load />
+			<div class='space-y-4'>
+				<h1 class='text-2xl font-bold text-foreground sm:text-4xl'>Learning AI-native data science by building products</h1>
+				<p class='max-w-2xl text-base text-muted-foreground'>
+					I'm building full-stack products with AI tools, then doing data science on real user data. Everything is open: the code, the decisions, the mistakes.
+				</p>
+				
+				<!-- CTAs -->
+				<div class='flex flex-wrap gap-3'>
+					<a
+						href='#projects'
+						class='inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-400'
+					>
+						See Current Project
+					</a>
+					<a
+						href='/build-log/contribute/'
+						class='inline-flex items-center gap-2 rounded-full border border-border bg-primary-foreground px-5 py-2.5 text-sm font-medium text-foreground transition hover:-translate-y-0.5 hover:border-foreground/30'
+					>
+						Want to Contribute?
+					</a>
 				</div>
 			</div>
 		</section>
