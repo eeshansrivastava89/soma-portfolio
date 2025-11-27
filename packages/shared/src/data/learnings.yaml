@@ -1,0 +1,35 @@
+# Learnings - Blog posts, Substack articles, docs, and videos
+# Schema: packages/shared/src/data/learnings.schema.json
+#
+# Fields:
+#   title: Display title
+#   url: Link (internal path or external URL)
+#   type: blog | substack | doc | video
+#   project: ab-sim | basketball | build-log | general
+#   tags: Array of topic tags
+#   date: YYYY-MM-DD
+#   excerpt: Optional 1-2 sentence description
+#   featured: Optional boolean to pin to top
+
+- title: "How I Built the A/B Simulator"
+  url: "/blog/how-i-built-the-ab-simulator"
+  type: blog
+  project: ab-sim
+  tags:
+    - react
+    - statistics
+    - astro
+    - ai-tools
+  date: "2025-11-15"
+  excerpt: "From idea to shipped product in 2 weeks using AI-native development."
+  featured: true
+
+- title: "Anti-Vibe Coding: A Manifesto"
+  url: "/blog/anti-vibe-coding"
+  type: blog
+  project: general
+  tags:
+    - ai-tools
+    - philosophy
+  date: "2025-10-20"
+  excerpt: "Why I reject the 'vibe coding' movement and embrace intentional development."

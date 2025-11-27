@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Learnings",
+  "description": "Blog posts, Substack articles, docs, and videos for the Build Log",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["title", "url", "type", "project", "date"],
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "Display title of the learning"
+      },
+      "url": {
+        "type": "string",
+        "description": "Internal path (e.g., /blog/...) or external URL"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["blog", "substack", "doc", "video"],
+        "description": "Content type for badge styling"
+      },
+      "project": {
+        "type": "string",
+        "enum": ["ab-sim", "basketball", "build-log", "general"],
+        "description": "Associated project for filtering"
+      },
+      "tags": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Topic tags for categorization"
+      },
+      "date": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "Publication date (YYYY-MM-DD)"
+      },
+      "excerpt": {
+        "type": "string",
+        "description": "Optional 1-2 sentence description"
+      },
+      "featured": {
+        "type": "boolean",
+        "description": "Pin to top of list"
+      }
+    }
+  }
+}

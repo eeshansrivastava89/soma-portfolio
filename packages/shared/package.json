@@ -6,6 +6,7 @@
     "./posthog": "./src/posthog.ts",
     "./supabase": "./src/supabase.ts",
     "./analytics": "./src/analytics.ts",
+    "./learnings": "./src/lib/learnings.ts",
     "./layouts/SiteLayout.astro": "./src/layouts/SiteLayout.astro",
     "./components/layout/Header.astro": "./src/components/layout/Header.astro",
     "./components/layout/Footer.astro": "./src/components/layout/Footer.astro",
