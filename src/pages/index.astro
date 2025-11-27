@@ -1,13 +1,10 @@
 ---
 import PageLayout from '../layouts/BaseLayout.astro'
-import Card from '../components/Card.astro'
-import FormattedDate from '../components/FormattedDate.astro'
 import { Icon } from 'astro-icon/components'
 
 import { Image } from 'astro:assets'
 import profile from '../assets/profile.jpg'
 
-import { getAllPosts, sortMDByDate, getUniqueTagsWithCount } from '../utils'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import path from 'path'
@@ -22,188 +19,178 @@ const socialData = yaml.load(socialLinksYaml) as {
 }
 const socialLinks = socialData.socialLinks
 
-// Load posts
-const allPosts = await getAllPosts()
-const sortedPosts = sortMDByDate(allPosts)
-const recentPost = sortedPosts[0]
-const tags = getUniqueTagsWithCount(sortedPosts)
+// Load build log data for stats
+import buildLogData from '../../packages/build-log/src/data/build-log-data.json'
+const totalContributors = buildLogData.contributors?.length ?? 0
+const openTasks = buildLogData.tasks?.filter((t: any) => t.status === 'open').length ?? 0
+
+// Load learnings count
+import { parseLearningsYaml } from '../../packages/shared/src/lib/learnings'
+import learningsYaml from '../../packages/shared/src/data/learnings.yaml?raw'
+const learnings = parseLearningsYaml(learningsYaml)
+const learningsCount = learnings.length
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
-	<div class='flex w-full flex-col gap-y-12'>
-		<!-- Hero Section -->
-		<section class='flex flex-col items-center gap-y-6 text-center'>
-			<!-- Profile Image -->
-			<Image
-				src={profile}
-				alt='profile photo'
-				class='rounded-full bg-[#FFBE98] p-2'
-				style='height: 200px; width: auto;'
-				loading='eager'
-			/>
+	<div class='flex w-full flex-col gap-y-10'>
+		
+		<!-- ============================================ -->
+		<!-- HERO: Compact horizontal card                -->
+		<!-- ============================================ -->
+		<section class='rounded-2xl border border-border bg-primary-foreground p-6 shadow-lg shadow-black/5'>
+			<div class='flex flex-col items-center gap-6 sm:flex-row sm:items-start'>
+				<!-- Profile Image -->
+				<Image
+					src={profile}
+					alt='profile photo'
+					class='h-28 w-28 shrink-0 rounded-full bg-[#FFBE98] p-1.5'
+					loading='eager'
+				/>
 
-			<!-- Name -->
-			<h1 class='text-4xl font-bold'>Eeshan S.</h1>
-
-			<!-- Subtitle -->
-			<p class='max-w-lg text-lg text-muted-foreground'>
-				Data science leader who likes to write, build and teach
-			</p>
-
-			<!-- Social Links Icons Row -->
-			<div class='flex gap-x-4'>
-				{
-					socialLinks.map((link) => (
-						<a
-							href={link.url}
-							target='_blank'
-							class='flex h-10 w-10 items-center justify-center rounded-full border border-border bg-primary-foreground transition-all hover:bg-input'
-							aria-label={link.label}
-						>
-							<Icon name={link.icon} class='h-5 w-5' />
-						</a>
-					))
-				}
-			</div>
-
-			<!-- Utility Section: Two Column Layout -->
-			<div
-				class='grid w-full grid-cols-1 gap-4 rounded-xl border border-orange-200 md:grid-cols-2 md:gap-0'
-			>
-				<!-- Left Column: Substack CTA -->
-				<a
-					href='https://scienceofexperimentation.substack.com'
-					target='_blank'
-					class='group flex items-center rounded-xl bg-orange-50 px-6 py-4 transition-all duration-200 hover:border-orange-300 hover:bg-orange-100 hover:shadow-md md:rounded-r-none md:border-r-0'
-				>
-					<div class='flex-1'>
-						<div class='mb-2 flex items-center gap-x-3'>
-							<div class='flex-shrink-0 rounded-lg bg-orange-500 p-2'>
-								<Icon name='simple-icons:substack' class='h-5 w-5 text-white' />
-							</div>
-							<span class='text-xs font-semibold uppercase tracking-wider text-orange-600'
-								>Newsletter</span
-							>
-						</div>
-						<div class='text-left'>
-							<p class='text-base font-bold leading-tight text-gray-900'>
-								Science of Experimentation & Analytics
-							</p>
-							<p class='mt-0.5 text-sm leading-tight text-gray-600'>Subscribe to my newsletter</p>
-						</div>
+				<!-- Name + Tagline + Socials -->
+				<div class='flex flex-col items-center gap-4 sm:items-start'>
+					<div class='text-center sm:text-left'>
+						<h1 class='text-2xl font-bold sm:text-3xl'>Eeshan S.</h1>
+						<p class='mt-1 max-w-md text-base text-muted-foreground'>
+							Data science leader building products with AI and writing about the journey
+						</p>
 					</div>
-					<div class='ml-4 flex flex-shrink-0 items-center gap-x-2'>
-						<svg
-							class='h-4 w-4 text-orange-600 transition-transform duration-200 group-hover:translate-x-1'
-							fill='none'
-							stroke='currentColor'
-							viewBox='0 0 24 24'
-							><path
-								stroke-linecap='round'
-								stroke-linejoin='round'
-								stroke-width='2'
-								d='M9 5l7 7-7 7'></path></svg
-						>
+
+					<!-- Social Links -->
+					<div class='flex gap-x-3'>
+						{
+							socialLinks.map((link) => (
+								<a
+									href={link.url}
+									target='_blank'
+									class='flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background transition-all hover:bg-input'
+									aria-label={link.label}
+								>
+									<Icon name={link.icon} class='h-4 w-4' />
+								</a>
+							))
+						}
 					</div>
-				</a>
-
-				<!-- Right Column: Two Stacked Utilities -->
-				<div class='flex flex-col border-orange-200 md:border-l'>
-					<!-- Top: A/B Simulator -->
-					<a
-						href='/ab-simulator'
-						class='group flex items-center justify-between rounded-xl border border-border bg-primary-foreground px-6 py-4 transition-all duration-200 hover:border-foreground/50 hover:bg-input hover:shadow-sm md:rounded-none md:rounded-tr-xl md:border-b md:border-l-0 md:border-t-0'
-					>
-						<div class='flex items-center gap-x-3'>
-							<div class='flex-shrink-0 rounded-lg bg-blue-500 p-2'>
-								<Icon name='simple-icons:flask' class='h-5 w-5 text-white' />
-							</div>
-							<div class='text-left'>
-								<p class='text-sm font-semibold text-foreground'>A/B Test Simulator</p>
-								<p class='text-xs text-muted-foreground'>Interactive experiments</p>
-							</div>
-						</div>
-						<svg
-							class='h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1'
-							fill='none'
-							stroke='currentColor'
-							viewBox='0 0 24 24'
-							><path
-								stroke-linecap='round'
-								stroke-linejoin='round'
-								stroke-width='2'
-								d='M9 5l7 7-7 7'></path></svg
-						>
-					</a>
-
-					<!-- Bottom: Browse Projects -->
-					<a
-						href='/projects'
-						class='group flex items-center justify-between rounded-xl border border-border bg-primary-foreground px-6 py-4 transition-all duration-200 hover:border-foreground/50 hover:bg-input hover:shadow-sm md:rounded-none md:rounded-br-xl md:border-l-0 md:border-t-0'
-					>
-						<div class='flex items-center gap-x-3'>
-							<div class='flex-shrink-0 rounded-lg bg-purple-500 p-2'>
-								<Icon name='simple-icons:github' class='h-5 w-5 text-white' />
-							</div>
-							<div class='text-left'>
-								<p class='text-sm font-semibold text-foreground'>Browse Projects</p>
-								<p class='text-xs text-muted-foreground'>See what I've built</p>
-							</div>
-						</div>
-						<svg
-							class='h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1'
-							fill='none'
-							stroke='currentColor'
-							viewBox='0 0 24 24'
-							><path
-								stroke-linecap='round'
-								stroke-linejoin='round'
-								stroke-width='2'
-								d='M9 5l7 7-7 7'></path></svg
-						>
-					</a>
 				</div>
 			</div>
 		</section>
 
-		<!-- Recent Post Section -->
-		{
-			recentPost ? (
-				<section class='flex flex-col gap-y-4'>
-					<h2 class='text-2xl font-bold'>Latest Post</h2>
-					<a href={`/blog/${recentPost.slug}`} class='group'>
-						<div class='rounded-lg border border-border bg-primary-foreground p-4 transition-all hover:border-foreground/50 hover:shadow-sm'>
-							<h3 class='text-lg font-semibold group-hover:text-foreground/75'>
-								{recentPost.data.title}
-							</h3>
-							<p class='mt-2 text-sm text-muted-foreground'>{recentPost.data.description}</p>
-							<div class='mt-3 flex items-center justify-between'>
-								<FormattedDate date={recentPost.data.publishDate} />
+		<!-- ============================================ -->
+		<!-- THE BUILD LOG: Main showcase                 -->
+		<!-- ============================================ -->
+		<section class='space-y-6'>
+			<div>
+				<h2 class='text-2xl font-bold text-foreground'>The Build Log</h2>
+				<p class='mt-1 text-sm text-muted-foreground'>Learning AI-native product development in public — and documenting everything.</p>
+			</div>
+
+			<div class='grid gap-4 sm:grid-cols-2'>
+				<!-- Current Project Card -->
+				<a
+					href='/ab-simulator/'
+					class='group rounded-2xl border border-border bg-primary-foreground p-5 shadow-lg shadow-black/5 transition hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-xl'
+				>
+					<div class='flex items-start justify-between'>
+						<div class='space-y-2'>
+							<div class='flex items-center gap-2'>
+								<h3 class='text-lg font-semibold text-foreground group-hover:text-orange-500'>A/B Test Simulator</h3>
+								<span class='inline-flex items-center gap-1 rounded-full bg-emerald-100 dark:bg-emerald-500/20 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300'>
+									<span class='h-1.5 w-1.5 rounded-full bg-emerald-500'></span>
+									Live
+								</span>
+							</div>
+							<p class='text-sm text-muted-foreground'>Interactive tool for learning A/B testing fundamentals</p>
+							<div class='flex flex-wrap gap-1.5 pt-1'>
+								<span class='rounded-full bg-orange-100 dark:bg-orange-500/20 px-2 py-0.5 text-xs font-medium text-orange-700 dark:text-orange-300'>Astro</span>
+								<span class='rounded-full bg-sky-100 dark:bg-sky-500/20 px-2 py-0.5 text-xs font-medium text-sky-700 dark:text-sky-300'>React</span>
+								<span class='rounded-full bg-violet-100 dark:bg-violet-500/20 px-2 py-0.5 text-xs font-medium text-violet-700 dark:text-violet-300'>Plotly</span>
 							</div>
 						</div>
-					</a>
-				</section>
-			) : null
-		}
-
-		<!-- Tags Section -->
-		{
-			tags.length > 0 ? (
-				<section class='flex flex-col gap-y-4'>
-					<h2 class='text-2xl font-bold'>Explore by Topic</h2>
-					<div class='flex flex-wrap gap-2'>
-						{tags.map(([tag, count]) => (
-							<a
-								href={`/tags/${tag}`}
-								class='rounded-lg border border-border bg-primary-foreground px-3 py-1.5 text-sm transition-all hover:border-foreground/50 hover:bg-input'
-							>
-								<span class='font-medium'>#{tag}</span>
-								<span class='ml-1 text-xs text-muted-foreground'>({count})</span>
-							</a>
-						))}
+						<span class='text-muted-foreground transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange-500'>→</span>
 					</div>
-				</section>
-			) : null
-		}
+				</a>
+
+				<!-- Learnings Card -->
+				<a
+					href='/build-log/#learnings'
+					class='group rounded-2xl border border-border bg-primary-foreground p-5 shadow-lg shadow-black/5 transition hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-xl'
+				>
+					<div class='flex items-start justify-between'>
+						<div class='space-y-2'>
+							<h3 class='text-lg font-semibold text-foreground group-hover:text-orange-500'>What I've Learned</h3>
+							<p class='text-sm text-muted-foreground'>Build logs, technical deep-dives, and lessons from shipping</p>
+							<div class='pt-1'>
+								<span class='text-2xl font-bold text-foreground'>{learningsCount}</span>
+								<span class='ml-1 text-sm text-muted-foreground'>posts</span>
+							</div>
+						</div>
+						<span class='text-muted-foreground transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange-500'>→</span>
+					</div>
+				</a>
+			</div>
+
+			<!-- Explore Build Log CTA -->
+			<a
+				href='/build-log/'
+				class='inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-400'
+			>
+				Explore the Build Log →
+			</a>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- CONTRIBUTE: Compact CTA                      -->
+		<!-- ============================================ -->
+		<section>
+			<a
+				href='/build-log/contribute/'
+				class='group block rounded-2xl border border-border bg-primary-foreground p-5 shadow-lg shadow-black/5 transition hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-xl'
+			>
+				<div class='flex flex-wrap items-center justify-between gap-4'>
+					<div class='space-y-1'>
+						<h2 class='text-lg font-semibold text-foreground group-hover:text-orange-500'>Want to Contribute?</h2>
+						<p class='text-sm text-muted-foreground'>Claim a task, open a PR, get code review, and ship. Real projects, real GitHub history.</p>
+						<div class='flex items-center gap-4 pt-1 text-sm'>
+							<span><span class='font-bold text-foreground'>{totalContributors}</span> <span class='text-muted-foreground'>contributors</span></span>
+							<span><span class='font-bold text-orange-500'>{openTasks}</span> <span class='text-muted-foreground'>open tasks</span></span>
+						</div>
+					</div>
+					<span class='inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition group-hover:bg-orange-400'>
+						See Open Tasks →
+					</span>
+				</div>
+			</a>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- NEWSLETTER: Substack CTA                     -->
+		<!-- ============================================ -->
+		<section>
+			<a
+				href='https://scienceofexperimentation.substack.com'
+				target='_blank'
+				class='group flex items-center rounded-2xl bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/30 px-6 py-5 transition-all duration-200 hover:bg-orange-100 dark:hover:bg-orange-500/20 hover:shadow-md'
+			>
+				<div class='flex-1'>
+					<div class='mb-2 flex items-center gap-x-3'>
+						<div class='flex-shrink-0 rounded-lg bg-orange-500 p-2'>
+							<Icon name='simple-icons:substack' class='h-5 w-5 text-white' />
+						</div>
+						<span class='text-xs font-semibold uppercase tracking-wider text-orange-600 dark:text-orange-400'>Newsletter</span>
+					</div>
+					<div class='text-left'>
+						<p class='text-base font-bold leading-tight text-gray-900 dark:text-white'>Science of Experimentation & Analytics</p>
+						<p class='mt-0.5 text-sm leading-tight text-gray-600 dark:text-gray-400'>Subscribe to my newsletter</p>
+					</div>
+				</div>
+				<svg
+					class='h-5 w-5 text-orange-600 dark:text-orange-400 transition-transform duration-200 group-hover:translate-x-1'
+					fill='none'
+					stroke='currentColor'
+					viewBox='0 0 24 24'
+				><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 5l7 7-7 7'></path></svg>
+			</a>
+		</section>
+
 	</div>
 </PageLayout>
