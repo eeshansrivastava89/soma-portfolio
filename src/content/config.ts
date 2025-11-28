@@ -29,6 +29,7 @@ const post = defineCollection({
 				.optional(),
 			draft: z.boolean().default(false),
 			featured: z.boolean().default(false),
+			category: z.enum(['technical', 'essay']).default('essay'),
 			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
 			ogImage: z.string().optional()
 		})

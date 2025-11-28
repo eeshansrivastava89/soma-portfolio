@@ -6,11 +6,30 @@
       "phase": "Active",
       "openTasks": 1,
       "claimed": 5,
-      "mergedThisWeek": 43,
-      "highlight": "43 tasks merged"
+      "mergedThisWeek": 44,
+      "highlight": "44 tasks merged"
     }
   ],
   "tasks": [
+    {
+      "id": "50",
+      "title": "refactor: Simplify site structure (Phase 8)",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "open",
+      "labels": [
+        "enhancement"
+      ],
+      "skills": [],
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/50",
+      "updatedAt": "2025-11-28T19:58:25Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
     {
       "id": "49",
       "title": "refactor: Merge build-log package into main site",
@@ -18,8 +37,12 @@
       "category": [
         "wiring"
       ],
-      "status": "open",
+      "status": "merged",
       "difficulty": "medium",
+      "closedBy": {
+        "name": "eeshansrivastava89",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+      },
       "labels": [
         "cat:wiring",
         "diff:medium",
@@ -30,8 +53,8 @@
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/49",
-      "updatedAt": "2025-11-28T17:14:27Z",
-      "closedAt": null,
+      "updatedAt": "2025-11-28T19:59:00Z",
+      "closedAt": "2025-11-28T19:18:00Z",
       "startDate": null,
       "targetDate": null
     },
@@ -1991,6 +2014,15 @@
   ],
   "recentActivity": [
     {
+      "type": "merged",
+      "taskId": "49",
+      "taskTitle": "refactor: Merge build-log package into main site",
+      "user": "eeshansrivastava89",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
+      "timestamp": "2025-11-28T19:18:00Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/49"
+    },
+    {
       "type": "claimed",
       "taskId": "48",
       "taskTitle": "refactor: Replace learnings.yaml with Astro content collection",
@@ -2070,16 +2102,7 @@
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
       "timestamp": "2025-11-28T15:53:22Z",
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/40"
-    },
-    {
-      "type": "claimed",
-      "taskId": "22",
-      "taskTitle": "build with me -> add project to the open work table",
-      "user": "eeshansrivastava89",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-28T14:27:24Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/22"
     }
   ],
-  "lastFetchTime": "2025-11-28T18:01:46.981Z"
+  "lastFetchTime": "2025-11-28T20:05:08.996Z"
 }

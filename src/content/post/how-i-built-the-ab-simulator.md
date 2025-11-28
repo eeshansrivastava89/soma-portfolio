@@ -4,7 +4,8 @@ description: 'A technical deep-dive into pivoting from a data science blog to a 
 publishDate: '2025-11-22'
 draft: true
 featured: true
-tags: ['project:ab-sim', 'engineering', 'analytics', 'experiments', 'astro', 'supabase']
+category: technical
+tags: ['engineering', 'analytics', 'astro', 'supabase']
 ---
 
 I never intended to build a memory game.

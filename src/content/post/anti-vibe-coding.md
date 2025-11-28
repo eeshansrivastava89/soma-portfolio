@@ -3,15 +3,13 @@ title: 'Anti-Vibe Coding'
 description: Initial thoughts on how to resist trend-chasing AI demos and stay grounded in measurable product outcomes.
 publishDate: 2025-11-16
 draft: true
+category: technical
 tags:
-  - project:general
-  - portfolio
-  - series-ai
   - ai
   - product
 ---
 
-[↩ More posts in the AI Series](/blog/series-ai)
+[↩ More posts in the AI Series](/writing/series-ai)
 
 ## Working Outline
 

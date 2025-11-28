@@ -2,6 +2,7 @@
 title: 'Living in the Age of Personalized Truth'
 description: Notes on how algorithmic feeds fracture consensus reality and what tools we need to stay aligned.
 publishDate: 2025-11-16
+category: essay
 draft: true
 tags:
   - portfolio

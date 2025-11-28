@@ -383,6 +383,65 @@ src/lib/build-log-config.ts  → Config
 
 ---
 
+## Phase 8: Site Simplification 🔄
+
+**Goal:** Radical simplification of site structure. Remove build-log page, rename blog to writing, streamline home page to 3 sections.
+
+**Status:** Planning
+
+### Problem
+
+Current structure has redundancy and unclear hierarchy:
+- Home page has "What I'm Writing" section → but there's also a Blog page
+- `/build-log/` page duplicates home page content
+- "Build Log" nav item is confusing (is it a blog? a project page?)
+- Too many CTAs for contributing
+
+### Solution
+
+**Home Page (3 sections):**
+```
+Hero (name + tagline + socials + newsletter)
+What I'm Building (ProjectCard with live stats)
+Join the Build (contribute CTA)
+```
+
+**Writing Page (replaces Blog):**
+```
+Writing
+├── Technical (build logs, tutorials, how-tos)
+└── Essays (opinion, culture, AI thoughts)
+```
+
+**Nav:**
+```
+About | Writing | Contribute
+```
+
+### Subtasks
+
+| Task | Description | Status |
+|------|-------------|--------|
+| Add `category` to post schema | `technical` or `essay` field | ⬜ |
+| Update existing posts | Add category to frontmatter | ⬜ |
+| Create `/writing/` page | Two-section layout | ⬜ |
+| Delete `/blog/` route | Remove `src/pages/blog/` | ⬜ |
+| Update home page | Remove "What I'm Writing" section | ⬜ |
+| Delete `/build-log/` page | Remove `src/pages/build-log/index.astro` | ⬜ |
+| Move contribute page | `/build-log/contribute/` → `/contribute/` | ⬜ |
+| Update nav | Blog → Writing, remove Build Log | ⬜ |
+| Delete unused components | `src/components/build-log/PostList.astro` etc. | ⬜ |
+| Verify & commit | Build passes, test all routes | ⬜ |
+
+### Expected Outcome
+
+- ✅ Clearer site structure (3 pages: Home, Writing, Contribute, About)
+- ✅ No duplicate content between pages
+- ✅ Fewer nav items
+- ✅ Home page is the "build log" - no separate page needed
+
+---
+
 ## Backlog
 
 | Task | Description | Status |

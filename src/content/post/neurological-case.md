@@ -2,6 +2,7 @@
 title: 'Neurological Case for Learning'
 description: Exploring how brains encode skills differently with and without AI aids, and what that means for practice.
 publishDate: 2025-11-16
+category: essay
 draft: true
 tags:
   - portfolio
@@ -10,7 +11,7 @@ tags:
   - ai
 ---
 
-[↩ Back to AI Series Hub](/blog/ai-series---on-vibe-coding)
+[↩ Back to AI Series Hub](/writing/ai-series---on-vibe-coding)
 
 ## Working Outline
 

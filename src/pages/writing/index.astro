@@ -1,0 +1,67 @@
+---
+import Button from '@/components/Button.astro'
+import PostPreview from '@/components/blog/PostPreview.astro'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { getAllPosts, sortMDByDate } from '@/utils'
+
+const allPosts = await getAllPosts()
+const sortedPosts = sortMDByDate(allPosts)
+
+const technicalPosts = sortedPosts.filter((p) => p.data.category === 'technical')
+const essayPosts = sortedPosts.filter((p) => p.data.category === 'essay')
+
+const meta = {
+	description: 'Technical posts and essays on AI, product development, and culture.',
+	title: 'Writing'
+}
+---
+
+<PageLayout meta={meta}>
+	<div class='w-full'>
+		<Button title='Back' href='/' style='button'>
+			<svg
+				xmlns='http://www.w3.org/2000/svg'
+				width='14'
+				height='14'
+				viewBox='0 0 24 24'
+				slot='icon-before'
+			>
+				<path
+					fill='currentColor'
+					d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
+				>
+				</path>
+			</svg>
+		</Button>
+
+		<h1 class='mb-8 mt-5 text-2xl font-bold'>Writing</h1>
+
+		<!-- Technical Section -->
+		{technicalPosts.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='mb-4 text-lg font-semibold text-foreground'>Technical</h2>
+				<p class='mb-6 text-sm text-muted-foreground'>Build logs, tutorials, and how I ship products with AI.</p>
+				<ul class='flex flex-col gap-y-4'>
+					{technicalPosts.map((post) => (
+						<PostPreview post={post} withDesc />
+					))}
+				</ul>
+			</section>
+		)}
+
+		<!-- Essays Section -->
+		{essayPosts.length > 0 && (
+			<section class='border-t border-border/40 pt-8'>
+				<h2 class='mb-4 text-lg font-semibold text-foreground'>Essays</h2>
+				<p class='mb-6 text-sm text-muted-foreground'>Thoughts on AI, culture, and the changing world.</p>
+				<ul class='flex flex-col gap-y-4'>
+					{essayPosts.map((post) => (
+						<PostPreview post={post} withDesc />
+					))}
+				</ul>
+			</section>
+		)}
+
+		{technicalPosts.length === 0 && essayPosts.length === 0 && <p>No posts yet.</p>}
+	</div>
+</PageLayout>

@@ -2,7 +2,8 @@
 title: 'First Post'
 publishDate: 2025-10-16
 description: 'My first post - testing the blog setup and what to expect.'
-tags: ['testing', 'intro', 'getting-started']
+category: essay
+tags: ['testing', 'intro']
 draft: false
 ---
 

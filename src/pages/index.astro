@@ -19,21 +19,10 @@ const socialData = yaml.load(socialLinksYaml) as {
 }
 const socialLinks = socialData.socialLinks
 
-// Load build log data for stats (now in src/data)
+// Load build log data for stats
 import buildLogData from '@/data/build-log-data.json'
 const totalContributors = buildLogData.contributors?.length ?? 0
 const openTasks = buildLogData.tasks?.filter((t: any) => t.status === 'open').length ?? 0
-
-// Load featured posts and learnings count
-import { getCollection } from 'astro:content'
-const allPosts = await getCollection('post', ({ data }) => !data.draft)
-const featuredPosts = allPosts
-	.filter((post) => post.data.featured)
-	.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
-	.slice(0, 3)
-
-// Get posts with project:* tags for learnings count
-const learningsCount = allPosts.filter(p => (p.data.tags || []).some((t: string) => t.startsWith('project:'))).length
 
 // Load projects
 import { parseProjectsYaml } from '../../packages/shared/src/lib/projects'
@@ -43,7 +32,7 @@ const projects = parseProjectsYaml(projectsYaml)
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
-	<div class='flex w-full flex-col gap-y-10'>
+	<div class='flex w-full flex-col'>
 		
 		<!-- ============================================ -->
 		<!-- HERO: Compact horizontal card                -->
@@ -62,13 +51,13 @@ const projects = parseProjectsYaml(projectsYaml)
 				<div class='flex flex-col items-center gap-4 sm:items-start'>
 					<div class='text-center sm:text-left'>
 						<h1 class='text-2xl font-bold sm:text-3xl'>Eeshan Srivastava</h1>
-						<p class='mt-1 max-w-md text-base text-muted-foreground'>
-							Data science leader building products with AI and writing about the journey
+						<p class='mt-1 text-base text-muted-foreground'>
+							Data science leader building products with AI
 						</p>
 					</div>
 
-					<!-- Social Links -->
-					<div class='flex gap-x-3'>
+					<!-- Social Links + Newsletter -->
+					<div class='flex flex-wrap items-center gap-x-3 gap-y-3'>
 						{
 							socialLinks.map((link) => (
 								<a
@@ -81,143 +70,54 @@ const projects = parseProjectsYaml(projectsYaml)
 								</a>
 							))
 						}
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- ============================================ -->
-		<!-- FEATURED POSTS                               -->
-		<!-- ============================================ -->
-		{featuredPosts.length > 0 && (
-			<section class='space-y-4'>
-				<div class='flex items-center justify-between'>
-					<h2 class='text-2xl font-bold text-foreground'>Featured Writing</h2>
-					<a href='/blog' class='text-sm text-muted-foreground transition hover:text-foreground'>
-						All posts →
-					</a>
-				</div>
-				
-				<div class='space-y-3'>
-					{featuredPosts.map((post) => (
+						<span class='text-muted-foreground'>|</span>
 						<a
-							href={`/blog/${post.slug}/`}
-							class='group block border-b border-border pb-3 last:border-b-0 last:pb-0'
+							href='https://scienceofexperimentation.substack.com'
+							target='_blank'
+							class='group flex items-center gap-2 text-sm'
 						>
-							<div class='flex items-start justify-between gap-4'>
-								<div class='space-y-1'>
-									<h3 class='font-semibold text-foreground transition group-hover:text-muted-foreground'>
-										{post.data.title}
-									</h3>
-									<p class='text-sm text-muted-foreground line-clamp-2'>{post.data.description}</p>
-								</div>
-								<span class='shrink-0 text-muted-foreground transition group-hover:translate-x-0.5'>→</span>
-							</div>
+							<Icon name='simple-icons:substack' class='h-4 w-4 shrink-0' />
+							<span class='text-muted-foreground'>Science of Experimentation & Analytics</span>
+							<span class='font-medium text-foreground transition group-hover:translate-x-0.5'>Subscribe →</span>
 						</a>
-					))}
-				</div>
-			</section>
-		)}
-
-		<!-- ============================================ -->
-		<!-- THE BUILD LOG: Main showcase                 -->
-		<!-- ============================================ -->
-		<section class='space-y-4'>
-			<h2 class='text-2xl font-bold text-foreground'>My Build Log</h2>
-			
-			<div>
-				<div class='flex flex-wrap items-start justify-between gap-4'>
-					<p class='text-sm text-muted-foreground'>Learning AI-native product development in public — and documenting everything.</p>
-					<a
-						href='/build-log/'
-						class='inline-flex shrink-0 items-center gap-2 bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90'
-					>
-						Explore my Build Log →
-					</a>
-				</div>
-
-				<!-- Projects subsection -->
-				<div class='mt-6'>
-					<h3 class='mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>Projects</h3>
-					<div class='space-y-3'>
-						{projects.map((project) => (
-							<ProjectCard project={project} variant='compact' />
-						))}
 					</div>
-				</div>
-
-				<!-- Learnings subsection -->
-				<div class='mt-5'>
-					<h3 class='mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>What I've Learned</h3>
-					<a
-						href='/build-log/#learnings'
-						class='group block'
-					>
-						<div class='flex items-center justify-between'>
-							<div class='flex items-center gap-4'>
-								<div>
-									<span class='text-2xl font-bold text-foreground'>{learningsCount}</span>
-									<span class='ml-1 text-sm text-muted-foreground'>posts</span>
-								</div>
-								<p class='text-sm text-muted-foreground'>Build logs, technical deep-dives, and lessons from shipping</p>
-							</div>
-							<span class='text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-foreground'>→</span>
-						</div>
-					</a>
 				</div>
 			</div>
 		</section>
 
 		<!-- ============================================ -->
-		<!-- CONTRIBUTE                                   -->
+		<!-- WHAT I'M BUILDING                            -->
 		<!-- ============================================ -->
-		<section class='space-y-4'>
-			<h2 class='text-2xl font-bold text-foreground'>Want to learn by contributing?</h2>
+		<section class='mt-12 space-y-4'>
+			<h2 class='text-2xl font-bold text-foreground'>What I'm Building</h2>
 			
-			<div>
-				<div class='flex flex-wrap items-center justify-between gap-4'>
-					<div class='space-y-1'>
-						<p class='text-sm text-muted-foreground'>Claim a task, open a PR, get code review, and ship. Real projects, real GitHub history.</p>
-						<div class='flex items-center gap-4 pt-1 text-sm'>
-							<span><span class='font-bold text-foreground'>{totalContributors}</span> <span class='text-muted-foreground'>contributors</span></span>
-							<span><span class='font-bold text-foreground'>{openTasks}</span> <span class='text-muted-foreground'>open tasks</span></span>
-						</div>
-					</div>
-					<a
-						href='/build-log/contribute/'
-						class='inline-flex shrink-0 items-center gap-2 bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90'
-					>
-						See Open Tasks →
-					</a>
-				</div>
+			<div class='space-y-3'>
+				{projects.map((project) => (
+					<ProjectCard project={project} variant='compact' />
+				))}
 			</div>
 		</section>
 
 		<!-- ============================================ -->
-		<!-- NEWSLETTER                                   -->
+		<!-- JOIN THE BUILD                               -->
 		<!-- ============================================ -->
-		<section class='space-y-4'>
-			<h2 class='text-2xl font-bold text-foreground'>Read my Newsletter</h2>
+		<section class='mt-16 border-t border-border/40 pt-12 space-y-4'>
+			<h2 class='text-2xl font-bold text-foreground'>Join the Build</h2>
 			
-			<div class='border border-border bg-primary-foreground p-5 shadow-lg shadow-black/5'>
-				<div class='flex flex-wrap items-center justify-between gap-4'>
-					<div class='flex items-center gap-3'>
-						<div class='flex-shrink-0 bg-foreground p-2'>
-							<Icon name='simple-icons:substack' class='h-5 w-5 text-background' />
-						</div>
-						<div>
-							<p class='text-base font-semibold text-foreground'>Science of Experimentation & Analytics</p>
-							<p class='text-sm text-muted-foreground'>Subscribe to my newsletter on Substack</p>
-						</div>
+			<div class='flex flex-wrap items-center justify-between gap-4'>
+				<div class='space-y-1'>
+					<p class='text-sm text-muted-foreground'>Claim a task, open a PR, get code review, and ship. Real projects, real GitHub history.</p>
+					<div class='flex items-center gap-4 pt-1 text-sm'>
+						<span><span class='font-bold text-foreground'>{totalContributors}</span> <span class='text-muted-foreground'>contributors</span></span>
+						<span><span class='font-bold text-foreground'>{openTasks}</span> <span class='text-muted-foreground'>open tasks</span></span>
 					</div>
-					<a
-						href='https://scienceofexperimentation.substack.com'
-						target='_blank'
-						class='inline-flex shrink-0 items-center gap-2 bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90'
-					>
-						Subscribe →
-					</a>
 				</div>
+				<a
+					href='/contribute/'
+					class='inline-flex shrink-0 items-center gap-2 bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90'
+				>
+					See Open Tasks →
+				</a>
 			</div>
 		</section>
 
