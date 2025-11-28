@@ -21,7 +21,7 @@ export default function VideoModal({
 			{/* Thumbnail with play button */}
 			<button
 				onClick={() => setIsOpen(true)}
-				className='group relative aspect-video w-full overflow-hidden rounded-2xl border border-border bg-black shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2'
+				className='group relative aspect-video w-full overflow-hidden rounded-2xl border border-border bg-black shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2'
 			>
 				<img
 					src={thumbnailUrl}
@@ -30,8 +30,8 @@ export default function VideoModal({
 				/>
 				{/* Play button overlay */}
 				<div className='absolute inset-0 flex items-center justify-center'>
-					<div className='flex h-16 w-16 items-center justify-center rounded-full bg-orange-500 shadow-lg shadow-orange-500/30 transition group-hover:scale-110'>
-						<Play className='h-7 w-7 text-white' fill='white' />
+					<div className='flex h-16 w-16 items-center justify-center rounded-full bg-foreground shadow-lg shadow-black/30 transition group-hover:scale-110'>
+						<Play className='h-7 w-7 text-background' fill='currentColor' />
 					</div>
 				</div>
 				{/* Label */}

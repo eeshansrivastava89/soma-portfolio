@@ -48,12 +48,12 @@ export default function FilterPanel({
 		<div className='relative'>
 			<button
 				onClick={() => setIsOpen(!isOpen)}
-				className='flex items-center gap-2 rounded-lg border border-border bg-primary-foreground px-4 py-2 text-sm font-medium text-foreground transition hover:border-orange-500 hover:bg-muted focus:outline-none focus:ring-2 focus:ring-orange-500/20'
+				className='flex items-center gap-2 rounded-lg border border-border bg-primary-foreground px-4 py-2 text-sm font-medium text-foreground transition hover:border-foreground/50 hover:bg-muted focus:outline-none focus:ring-2 focus:ring-foreground/20'
 			>
 				<Filter className='h-4 w-4' />
 				Filters
 				{activeFiltersCount > 0 && (
-					<span className='rounded-full bg-orange-500 px-2 py-0.5 text-xs font-semibold text-white'>
+					<span className='rounded-full bg-foreground px-2 py-0.5 text-xs font-semibold text-background'>
 						{activeFiltersCount}
 					</span>
 				)}

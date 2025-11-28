@@ -21,7 +21,7 @@ const SKILL_STYLES: Record<string, { label: string; color: string }> = {
 	react: { label: 'React', color: 'bg-sky-100 dark:bg-sky-500/20 text-sky-700 dark:text-sky-300' },
 	typescript: { label: 'TypeScript', color: 'bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300' },
 	tailwind: { label: 'Tailwind', color: 'bg-cyan-100 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300' },
-	astro: { label: 'Astro', color: 'bg-orange-100 dark:bg-orange-500/20 text-orange-700 dark:text-orange-300' },
+	astro: { label: 'Astro', color: 'bg-slate-100 dark:bg-slate-500/20 text-slate-700 dark:text-slate-300' },
 	python: { label: 'Python', color: 'bg-yellow-100 dark:bg-yellow-500/20 text-yellow-700 dark:text-yellow-300' },
 	sql: { label: 'SQL', color: 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' },
 	git: { label: 'Git', color: 'bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-300' },
@@ -172,7 +172,7 @@ export default function TasksTable({ tasks }: TasksTableProps) {
 				cell: ({ row }) => (
 					<a
 						href={row.original.githubUrl}
-						className='inline-flex items-center gap-1 text-xs text-orange-600 hover:text-orange-700'
+						className='inline-flex items-center gap-1 text-xs text-foreground hover:text-muted-foreground'
 						target='_blank'
 						rel='noreferrer'
 					>
@@ -302,12 +302,12 @@ export default function TasksTable({ tasks }: TasksTableProps) {
 											<span className='text-xs text-emerald-700'>Unclaimed</span>
 										)}
 									</div>
-									<a
-										href={task.githubUrl}
-										className='inline-flex items-center gap-1 text-xs text-orange-600'
-										target='_blank'
-										rel='noreferrer'
-									>
+										<a
+											href={task.githubUrl}
+											className='inline-flex items-center gap-1 text-xs text-foreground'
+											target='_blank'
+											rel='noreferrer'
+										>
 										<ExternalLink className='h-3 w-3' />
 									</a>
 								</div>

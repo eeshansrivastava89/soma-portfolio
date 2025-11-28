@@ -46,7 +46,7 @@ export default function BuildLogView({
 				<div className='flex flex-wrap items-center gap-2'>
 					<a
 						href='#open-work'
-						className='rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-400'
+						className='rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90'
 					>
 						Open Work
 					</a>

@@ -59,7 +59,7 @@ export default function ContributorCards({ contributors, tasks }: ContributorCar
 	return (
 		<div className='space-y-4'>
 			<div className='flex items-center gap-2'>
-				<Users className='h-5 w-5 text-orange-500' />
+				<Users className='h-5 w-5 text-foreground' />
 				<h2 className='text-xl font-semibold text-foreground'>Contributors</h2>
 				<span className='text-sm text-muted-foreground'>({contributors.length})</span>
 			</div>
@@ -67,24 +67,24 @@ export default function ContributorCards({ contributors, tasks }: ContributorCar
 				{contributors.map((contributor) => {
 					const latestShip = latestShipByUser.get(contributor.name)
 
-					return (
-						<div
-							key={contributor.name}
-							className='group rounded-2xl border border-border bg-primary-foreground p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-lg'
-						>
-							{/* Header: Avatar + Name */}
-							<div className='flex items-start gap-4'>
-								{contributor.avatarUrl ? (
-									<img
-										src={contributor.avatarUrl}
-										alt={contributor.name}
-										className='h-14 w-14 rounded-full border-2 border-border shadow-sm'
-									/>
-								) : (
-									<div className='flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-100 to-amber-100 text-lg font-bold text-orange-600'>
-										{contributor.name.charAt(0).toUpperCase()}
-									</div>
-								)}
+						return (
+							<div
+								key={contributor.name}
+								className='group rounded-2xl border border-border bg-primary-foreground p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-foreground/30 hover:shadow-lg'
+							>
+								{/* Header: Avatar + Name */}
+								<div className='flex items-start gap-4'>
+									{contributor.avatarUrl ? (
+										<img
+											src={contributor.avatarUrl}
+											alt={contributor.name}
+											className='h-14 w-14 rounded-full border-2 border-border shadow-sm'
+										/>
+									) : (
+										<div className='flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-slate-100 to-slate-200 text-lg font-bold text-slate-600 dark:from-slate-700 dark:to-slate-800 dark:text-slate-300'>
+											{contributor.name.charAt(0).toUpperCase()}
+										</div>
+									)}
 								<div className='min-w-0 flex-1'>
 									<span className='truncate text-base font-semibold text-foreground'>
 										{contributor.name}
@@ -111,7 +111,7 @@ export default function ContributorCards({ contributors, tasks }: ContributorCar
 										href={latestShip.githubUrl}
 										target='_blank'
 										rel='noreferrer'
-										className='mt-1 block text-sm text-foreground transition hover:text-orange-600'
+										className='mt-1 block text-sm text-foreground transition hover:text-muted-foreground'
 									>
 										<span className='line-clamp-2'><span className='text-muted-foreground'>#{latestShip.id}</span> {latestShip.title}</span>
 									</a>
@@ -123,7 +123,7 @@ export default function ContributorCards({ contributors, tasks }: ContributorCar
 											href={latestShip.githubUrl}
 											target='_blank'
 											rel='noreferrer'
-											className='inline-flex items-center gap-1 text-xs text-orange-500 hover:text-orange-600'
+											className='inline-flex items-center gap-1 text-xs text-foreground hover:text-muted-foreground'
 										>
 											<ExternalLink className='h-3 w-3' />
 											View

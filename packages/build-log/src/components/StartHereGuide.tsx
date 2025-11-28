@@ -18,7 +18,7 @@ const STEPS = [
 		icon: GitPullRequest,
 		title: '3. Ship a PR',
 		description: 'Fork, code, and open a pull request. I\'ll review within 48 hours.',
-		color: 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-500/20',
+		color: 'text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-500/20',
 	},
 	{
 		icon: CheckCircle,
@@ -32,7 +32,7 @@ export default function StartHereGuide() {
 	const [isExpanded, setIsExpanded] = useState(false)
 
 	return (
-		<div className='rounded-2xl border border-purple-200 dark:border-purple-400/40 bg-gradient-to-r from-purple-50 to-orange-50 dark:from-purple-900/50 dark:to-orange-900/40 shadow-lg shadow-purple-500/5'>
+		<div className='rounded-2xl border border-purple-200 dark:border-purple-400/40 bg-gradient-to-r from-purple-50 to-slate-50 dark:from-purple-900/50 dark:to-slate-900/40 shadow-lg shadow-purple-500/5'>
 			<button
 				onClick={() => setIsExpanded(!isExpanded)}
 				className='flex w-full items-center justify-between px-4 py-3'

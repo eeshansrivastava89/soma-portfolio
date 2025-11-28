@@ -20,7 +20,7 @@ export const TYPE_CONFIG: Record<LearningType, { label: string; emoji: string; c
   blog: {
     label: 'Blog',
     emoji: '📝',
-    color: 'bg-orange-100 dark:bg-orange-500/20 text-orange-700 dark:text-orange-300'
+    color: 'bg-slate-100 dark:bg-slate-500/20 text-slate-700 dark:text-slate-300'
   },
   substack: {
     label: 'Substack',

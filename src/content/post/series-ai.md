@@ -6,6 +6,7 @@ tags:
   - ai
   - opinion
 draft: false
+featured: true
 ---
 
 ## Posts in this collection

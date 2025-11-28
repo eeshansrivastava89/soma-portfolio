@@ -5,12 +5,250 @@
       "name": "A/B Simulator",
       "phase": "Active",
       "openTasks": 0,
-      "claimed": 4,
+      "claimed": 12,
       "mergedThisWeek": 35,
       "highlight": "35 tasks merged"
     }
   ],
   "tasks": [
+    {
+      "id": "47",
+      "title": "Add live stats display to ProjectCard",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend",
+        "backend"
+      ],
+      "status": "claimed",
+      "difficulty": "medium",
+      "assignees": [
+        {
+          "name": "eeshansrivastava89",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+        }
+      ],
+      "labels": [
+        "cat:frontend",
+        "cat:backend",
+        "diff:medium",
+        "project:ab-sim",
+        "hours:3-5"
+      ],
+      "skills": [],
+      "estimatedHours": "3-5",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/47",
+      "updatedAt": "2025-11-28T14:27:03Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "46",
+      "title": "Add stats config to projects.yaml",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "claimed",
+      "difficulty": "medium",
+      "assignees": [
+        {
+          "name": "eeshansrivastava89",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+        }
+      ],
+      "labels": [
+        "cat:frontend",
+        "diff:medium",
+        "hours:1-2"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/46",
+      "updatedAt": "2025-11-28T14:26:48Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "45",
+      "title": "Create Supabase view for project stats",
+      "projectSlug": "ab-sim",
+      "category": [
+        "backend",
+        "analytics"
+      ],
+      "status": "claimed",
+      "difficulty": "easy",
+      "assignees": [
+        {
+          "name": "eeshansrivastava89",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+        }
+      ],
+      "labels": [
+        "cat:backend",
+        "cat:analytics",
+        "diff:easy",
+        "project:ab-sim",
+        "hours:1-2"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/45",
+      "updatedAt": "2025-11-28T14:26:32Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "44",
+      "title": "Add featured posts section to home page",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "claimed",
+      "difficulty": "easy",
+      "assignees": [
+        {
+          "name": "eeshansrivastava89",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+        }
+      ],
+      "labels": [
+        "cat:frontend",
+        "diff:easy",
+        "hours:1-2"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/44",
+      "updatedAt": "2025-11-28T14:26:16Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "43",
+      "title": "Add featured field to blog post schema",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "claimed",
+      "difficulty": "easy",
+      "assignees": [
+        {
+          "name": "eeshansrivastava89",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+        }
+      ],
+      "labels": [
+        "cat:frontend",
+        "diff:easy",
+        "hours:1-2"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/43",
+      "updatedAt": "2025-11-28T14:26:02Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "42",
+      "title": "Replace colored tag pills with neutral gray",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "claimed",
+      "difficulty": "easy",
+      "assignees": [
+        {
+          "name": "eeshansrivastava89",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+        }
+      ],
+      "labels": [
+        "cat:frontend",
+        "diff:easy",
+        "hours:1-2"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/42",
+      "updatedAt": "2025-11-28T14:25:51Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "41",
+      "title": "Replace orange CTAs with black/white palette",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "claimed",
+      "difficulty": "easy",
+      "assignees": [
+        {
+          "name": "eeshansrivastava89",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+        }
+      ],
+      "labels": [
+        "cat:frontend",
+        "diff:easy",
+        "hours:1-2"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/41",
+      "updatedAt": "2025-11-28T14:25:40Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
+    {
+      "id": "40",
+      "title": "Remove border beam animation from Build Log nav",
+      "projectSlug": "ab-sim",
+      "category": [
+        "frontend"
+      ],
+      "status": "claimed",
+      "difficulty": "easy",
+      "assignees": [
+        {
+          "name": "eeshansrivastava89",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4"
+        }
+      ],
+      "labels": [
+        "cat:frontend",
+        "diff:easy",
+        "hours:1-2"
+      ],
+      "skills": [],
+      "estimatedHours": "1-2",
+      "isGoodFirstIssue": false,
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/40",
+      "updatedAt": "2025-11-28T14:25:29Z",
+      "closedAt": null,
+      "startDate": null,
+      "targetDate": null
+    },
     {
       "id": "39",
       "title": "DRY Projects: Shared YAML data + ProjectCard component",
@@ -42,7 +280,7 @@
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/39",
-      "updatedAt": "2025-11-27T07:58:50Z",
+      "updatedAt": "2025-11-28T14:27:47Z",
       "closedAt": "2025-11-27T07:58:50Z",
       "startDate": null,
       "targetDate": null
@@ -76,7 +314,7 @@
       "estimatedHours": "1-2",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/38",
-      "updatedAt": "2025-11-27T07:32:09Z",
+      "updatedAt": "2025-11-28T14:27:47Z",
       "closedAt": "2025-11-27T07:30:46Z",
       "startDate": null,
       "targetDate": null
@@ -110,7 +348,7 @@
       "estimatedHours": "1-2",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/37",
-      "updatedAt": "2025-11-27T07:32:06Z",
+      "updatedAt": "2025-11-28T14:27:46Z",
       "closedAt": "2025-11-27T07:30:43Z",
       "startDate": null,
       "targetDate": null
@@ -144,7 +382,7 @@
       "estimatedHours": "1-2",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/36",
-      "updatedAt": "2025-11-27T07:32:04Z",
+      "updatedAt": "2025-11-28T14:27:45Z",
       "closedAt": "2025-11-27T07:30:41Z",
       "startDate": null,
       "targetDate": null
@@ -178,7 +416,7 @@
       "estimatedHours": "1-2",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/35",
-      "updatedAt": "2025-11-27T07:32:01Z",
+      "updatedAt": "2025-11-28T14:27:45Z",
       "closedAt": "2025-11-27T07:30:38Z",
       "startDate": null,
       "targetDate": null
@@ -212,7 +450,7 @@
       "estimatedHours": "1-2",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/34",
-      "updatedAt": "2025-11-27T07:31:58Z",
+      "updatedAt": "2025-11-28T14:27:44Z",
       "closedAt": "2025-11-27T07:30:36Z",
       "startDate": null,
       "targetDate": null
@@ -246,7 +484,7 @@
       "estimatedHours": "1-2",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/33",
-      "updatedAt": "2025-11-27T07:31:55Z",
+      "updatedAt": "2025-11-28T14:27:44Z",
       "closedAt": "2025-11-27T07:27:03Z",
       "startDate": null,
       "targetDate": null
@@ -621,7 +859,7 @@
       "skills": [],
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/22",
-      "updatedAt": "2025-11-26T19:15:39Z",
+      "updatedAt": "2025-11-28T14:27:24Z",
       "closedAt": null,
       "startDate": null,
       "targetDate": null
@@ -646,13 +884,14 @@
         "cat:backend",
         "cat:wiring",
         "diff:hard",
-        "hours:6+"
+        "hours:6+",
+        "project:build-with-me"
       ],
       "skills": [],
       "estimatedHours": "6+",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/21",
-      "updatedAt": "2025-11-27T04:52:58Z",
+      "updatedAt": "2025-11-28T14:27:23Z",
       "closedAt": null,
       "startDate": "2025-12-01",
       "targetDate": "2025-12-06"
@@ -769,13 +1008,14 @@
       ],
       "labels": [
         "cat:docs",
-        "hours:3-5"
+        "hours:3-5",
+        "project:build-with-me"
       ],
       "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/17",
-      "updatedAt": "2025-11-25T17:57:09Z",
+      "updatedAt": "2025-11-28T14:27:23Z",
       "closedAt": null,
       "startDate": "2025-11-26",
       "targetDate": "2025-11-28"
@@ -798,13 +1038,14 @@
       "labels": [
         "cat:frontend",
         "cat:docs",
-        "hours:3-5"
+        "hours:3-5",
+        "project:build-with-me"
       ],
       "skills": [],
       "estimatedHours": "3-5",
       "isGoodFirstIssue": false,
       "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/16",
-      "updatedAt": "2025-11-25T17:14:45Z",
+      "updatedAt": "2025-11-28T14:27:22Z",
       "closedAt": null,
       "startDate": "2025-11-26",
       "targetDate": "2025-11-28"
@@ -1315,6 +1556,64 @@
       "name": "eeshansrivastava89",
       "hats": [
         "frontend",
+        "backend"
+      ],
+      "status": "claimed"
+    },
+    {
+      "name": "eeshansrivastava89",
+      "hats": [
+        "frontend"
+      ],
+      "status": "claimed"
+    },
+    {
+      "name": "eeshansrivastava89",
+      "hats": [
+        "backend",
+        "analytics"
+      ],
+      "status": "claimed"
+    },
+    {
+      "name": "eeshansrivastava89",
+      "hats": [
+        "frontend"
+      ],
+      "status": "claimed"
+    },
+    {
+      "name": "eeshansrivastava89",
+      "hats": [
+        "frontend"
+      ],
+      "status": "claimed"
+    },
+    {
+      "name": "eeshansrivastava89",
+      "hats": [
+        "frontend"
+      ],
+      "status": "claimed"
+    },
+    {
+      "name": "eeshansrivastava89",
+      "hats": [
+        "frontend"
+      ],
+      "status": "claimed"
+    },
+    {
+      "name": "eeshansrivastava89",
+      "hats": [
+        "frontend"
+      ],
+      "status": "claimed"
+    },
+    {
+      "name": "eeshansrivastava89",
+      "hats": [
+        "frontend",
         "wiring"
       ],
       "status": "merged"
@@ -1600,95 +1899,95 @@
   ],
   "recentActivity": [
     {
-      "type": "merged",
-      "taskId": "39",
-      "taskTitle": "DRY Projects: Shared YAML data + ProjectCard component",
+      "type": "claimed",
+      "taskId": "22",
+      "taskTitle": "build with me -> add project to the open work table",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T07:58:50Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/39"
+      "timestamp": "2025-11-28T14:27:24Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/22"
     },
     {
-      "type": "merged",
-      "taskId": "38",
-      "taskTitle": "Update tagline across site",
+      "type": "claimed",
+      "taskId": "21",
+      "taskTitle": "build with me -> Refactor: Migrate fetch-data.mjs to unified GraphQL API",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T07:30:46Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/38"
+      "timestamp": "2025-11-28T14:27:23Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/21"
     },
     {
-      "type": "merged",
-      "taskId": "37",
-      "taskTitle": "Home page: Remove blog sections",
+      "type": "claimed",
+      "taskId": "17",
+      "taskTitle": "portfolio -> create architecture doc page per project",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T07:30:43Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/37"
+      "timestamp": "2025-11-28T14:27:23Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/17"
     },
     {
-      "type": "merged",
-      "taskId": "36",
-      "taskTitle": "Home page: Substack CTA at bottom",
+      "type": "claimed",
+      "taskId": "16",
+      "taskTitle": "build with me -> open work table -> add columns for architecture docs & substack posts at the project level",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T07:30:41Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/36"
+      "timestamp": "2025-11-28T14:27:22Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/16"
     },
     {
-      "type": "merged",
-      "taskId": "35",
-      "taskTitle": "Home page: Contribute CTA card",
+      "type": "claimed",
+      "taskId": "47",
+      "taskTitle": "Add live stats display to ProjectCard",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T07:30:38Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/35"
+      "timestamp": "2025-11-28T14:27:03Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/47"
     },
     {
-      "type": "merged",
-      "taskId": "34",
-      "taskTitle": "Home page: Build Log showcase section",
+      "type": "claimed",
+      "taskId": "46",
+      "taskTitle": "Add stats config to projects.yaml",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T07:30:36Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/34"
+      "timestamp": "2025-11-28T14:26:48Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/46"
     },
     {
-      "type": "merged",
-      "taskId": "33",
-      "taskTitle": "Home page: Hero card redesign",
+      "type": "claimed",
+      "taskId": "45",
+      "taskTitle": "Create Supabase view for project stats",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T07:27:03Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/33"
+      "timestamp": "2025-11-28T14:26:32Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/45"
     },
     {
-      "type": "merged",
-      "taskId": "32",
-      "taskTitle": "Add Contribute link to header nav",
+      "type": "claimed",
+      "taskId": "44",
+      "taskTitle": "Add featured posts section to home page",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T05:45:19Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/32"
+      "timestamp": "2025-11-28T14:26:16Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/44"
     },
     {
-      "type": "merged",
-      "taskId": "31",
-      "taskTitle": "Create /build-log/contribute/ page",
+      "type": "claimed",
+      "taskId": "43",
+      "taskTitle": "Add featured field to blog post schema",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T05:45:19Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/31"
+      "timestamp": "2025-11-28T14:26:02Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/43"
     },
     {
-      "type": "merged",
-      "taskId": "30",
-      "taskTitle": "Learnings filter pills + numbered pagination",
+      "type": "claimed",
+      "taskId": "42",
+      "taskTitle": "Replace colored tag pills with neutral gray",
       "user": "eeshansrivastava89",
       "avatarUrl": "https://avatars.githubusercontent.com/u/77134595?v=4",
-      "timestamp": "2025-11-27T05:33:19Z",
-      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/30"
+      "timestamp": "2025-11-28T14:25:51Z",
+      "githubUrl": "https://github.com/eeshansrivastava89/soma-portfolio/issues/42"
     }
   ],
-  "lastFetchTime": "2025-11-27T11:16:16.562Z"
+  "lastFetchTime": "2025-11-28T15:41:09.235Z"
 }

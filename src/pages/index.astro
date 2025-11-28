@@ -35,6 +35,14 @@ import { parseProjectsYaml } from '../../packages/shared/src/lib/projects'
 import projectsYaml from '../../packages/shared/src/data/projects.yaml?raw'
 import ProjectCard from '../../packages/shared/src/components/ProjectCard.astro'
 const projects = parseProjectsYaml(projectsYaml)
+
+// Load featured posts
+import { getCollection } from 'astro:content'
+const allPosts = await getCollection('post', ({ data }) => !data.draft)
+const featuredPosts = allPosts
+	.filter((post) => post.data.featured)
+	.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+	.slice(0, 3)
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -82,6 +90,39 @@ const projects = parseProjectsYaml(projectsYaml)
 		</section>
 
 		<!-- ============================================ -->
+		<!-- FEATURED POSTS                               -->
+		<!-- ============================================ -->
+		{featuredPosts.length > 0 && (
+			<section class='space-y-4'>
+				<div class='flex items-center justify-between'>
+					<h2 class='text-2xl font-bold text-foreground'>Featured Writing</h2>
+					<a href='/blog' class='text-sm text-muted-foreground transition hover:text-foreground'>
+						All posts →
+					</a>
+				</div>
+				
+				<div class='space-y-3'>
+					{featuredPosts.map((post) => (
+						<a
+							href={`/blog/${post.slug}/`}
+							class='group block rounded-xl border border-border bg-primary-foreground p-4 transition hover:-translate-y-0.5 hover:border-foreground/30 hover:shadow-sm'
+						>
+							<div class='flex items-start justify-between gap-4'>
+								<div class='space-y-1'>
+									<h3 class='font-semibold text-foreground transition group-hover:text-muted-foreground'>
+										{post.data.title}
+									</h3>
+									<p class='text-sm text-muted-foreground line-clamp-2'>{post.data.description}</p>
+								</div>
+								<span class='shrink-0 text-muted-foreground transition group-hover:translate-x-0.5'>→</span>
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
+		)}
+
+		<!-- ============================================ -->
 		<!-- THE BUILD LOG: Main showcase                 -->
 		<!-- ============================================ -->
 		<section class='space-y-4'>
@@ -92,7 +133,7 @@ const projects = parseProjectsYaml(projectsYaml)
 					<p class='text-sm text-muted-foreground'>Learning AI-native product development in public — and documenting everything.</p>
 					<a
 						href='/build-log/'
-						class='inline-flex shrink-0 items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-400'
+						class='inline-flex shrink-0 items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90'
 					>
 						Explore my Build Log →
 					</a>
@@ -113,7 +154,7 @@ const projects = parseProjectsYaml(projectsYaml)
 					<h3 class='mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>What I've Learned</h3>
 					<a
 						href='/build-log/#learnings'
-						class='group block rounded-xl border border-border bg-background p-4 transition hover:border-orange-300 hover:shadow-sm'
+						class='group block rounded-xl border border-border bg-background p-4 transition hover:border-foreground/30 hover:shadow-sm'
 					>
 						<div class='flex items-center justify-between'>
 							<div class='flex items-center gap-4'>
@@ -123,7 +164,7 @@ const projects = parseProjectsYaml(projectsYaml)
 								</div>
 								<p class='text-sm text-muted-foreground'>Build logs, technical deep-dives, and lessons from shipping</p>
 							</div>
-							<span class='text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-orange-500'>→</span>
+							<span class='text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-foreground'>→</span>
 						</div>
 					</a>
 				</div>
@@ -142,12 +183,12 @@ const projects = parseProjectsYaml(projectsYaml)
 						<p class='text-sm text-muted-foreground'>Claim a task, open a PR, get code review, and ship. Real projects, real GitHub history.</p>
 						<div class='flex items-center gap-4 pt-1 text-sm'>
 							<span><span class='font-bold text-foreground'>{totalContributors}</span> <span class='text-muted-foreground'>contributors</span></span>
-							<span><span class='font-bold text-orange-500'>{openTasks}</span> <span class='text-muted-foreground'>open tasks</span></span>
+							<span><span class='font-bold text-foreground'>{openTasks}</span> <span class='text-muted-foreground'>open tasks</span></span>
 						</div>
 					</div>
 					<a
 						href='/build-log/contribute/'
-						class='inline-flex shrink-0 items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-400'
+						class='inline-flex shrink-0 items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90'
 					>
 						See Open Tasks →
 					</a>
@@ -164,8 +205,8 @@ const projects = parseProjectsYaml(projectsYaml)
 			<div class='rounded-2xl border border-border bg-primary-foreground p-5 shadow-lg shadow-black/5'>
 				<div class='flex flex-wrap items-center justify-between gap-4'>
 					<div class='flex items-center gap-3'>
-						<div class='flex-shrink-0 rounded-lg bg-orange-500 p-2'>
-							<Icon name='simple-icons:substack' class='h-5 w-5 text-white' />
+						<div class='flex-shrink-0 rounded-lg bg-foreground p-2'>
+							<Icon name='simple-icons:substack' class='h-5 w-5 text-background' />
 						</div>
 						<div>
 							<p class='text-base font-semibold text-foreground'>Science of Experimentation & Analytics</p>
@@ -175,7 +216,7 @@ const projects = parseProjectsYaml(projectsYaml)
 					<a
 						href='https://scienceofexperimentation.substack.com'
 						target='_blank'
-						class='inline-flex shrink-0 items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-400'
+						class='inline-flex shrink-0 items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90'
 					>
 						Subscribe →
 					</a>

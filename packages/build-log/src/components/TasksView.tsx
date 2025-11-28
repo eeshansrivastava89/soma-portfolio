@@ -95,8 +95,8 @@ export default function TasksView({ tasks }: TasksViewProps) {
 							onClick={() => toggleQuickFilter(id)}
 							className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition ${
 								isActive
-									? 'bg-orange-500 text-white'
-									: 'border border-border bg-muted/50 text-muted-foreground hover:border-orange-500/50 hover:text-foreground'
+									? 'bg-foreground text-background'
+									: 'border border-border bg-muted/50 text-muted-foreground hover:border-foreground/50 hover:text-foreground'
 							}`}
 						>
 							<Icon className='h-3 w-3' />

@@ -170,6 +170,150 @@ Consolidated 3 sections into unified `ContributorCards`. Removed competitive ele
 
 ---
 
+## Phase 5: Design System Refinement & Live Stats
+
+**Goal:** Shift from "friendly/eager" to "authoritative/minimal" design. Remove decorative elements, adopt black/white palette, and add live project stats fetched from Supabase.
+
+**Status:** 🔄 In Progress
+
+### Design Mockup
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  A/B Test Simulator                                  ● Live    [Try It] │
+│                                                                         │
+│  Interactive tool for learning A/B testing fundamentals.                │
+│  Run experiments, visualize statistical significance, and               │
+│  understand the math behind the scenes.                                 │
+│                                                                         │
+│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐            │
+│  │    12,847      │  │      67%       │  │   Variant B    │            │
+│  │  games played  │  │   completion   │  │    winning     │            │
+│  └────────────────┘  └────────────────┘  └────────────────┘            │
+│                                                                         │
+│  [Astro]  [React]  [Tailwind]  [Plotly]    ← gray tags, not colored    │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+Buttons: Black fill, white text (not orange)
+Tags: Gray/slate background (not colored)
+Status "Live": Green dot retained (functional indicator)
+```
+
+### Tasks
+
+| Task | Description | Status |
+|------|-------------|--------|
+| **Remove border beam** ([#40](https://github.com/eeshansrivastava89/soma-portfolio/issues/40)) | Delete rotating animation from Build Log nav | ⬜ Todo |
+| **Black/white buttons** ([#41](https://github.com/eeshansrivastava89/soma-portfolio/issues/41)) | Replace orange CTAs with black throughout site | ⬜ Todo |
+| **Gray tags** ([#42](https://github.com/eeshansrivastava89/soma-portfolio/issues/42)) | Replace colored tag pills with neutral gray | ⬜ Todo |
+| **Featured posts field** ([#43](https://github.com/eeshansrivastava89/soma-portfolio/issues/43)) | Add `featured: true` to post frontmatter schema | ⬜ Todo |
+| **Featured posts section** ([#44](https://github.com/eeshansrivastava89/soma-portfolio/issues/44)) | Show hand-picked posts on home page | ⬜ Todo |
+| **Supabase view for stats** ([#45](https://github.com/eeshansrivastava89/soma-portfolio/issues/45)) | Create `v_project_stats` view | ⬜ Todo |
+| **Stats in projects.yaml** ([#46](https://github.com/eeshansrivastava89/soma-portfolio/issues/46)) | Add stats config per project | ⬜ Todo |
+| **Live stats in ProjectCard** ([#47](https://github.com/eeshansrivastava89/soma-portfolio/issues/47)) | Client-side hydration of stats from Supabase | ⬜ Todo |
+
+### Architecture: Live Stats
+
+**Supabase View (to create):**
+
+```sql
+-- v_project_stats: Returns summary stats for project cards
+CREATE OR REPLACE VIEW v_project_stats AS
+SELECT 
+  'ab-simulator' as project_id,
+  COUNT(*) as games_played,
+  ROUND(
+    COUNT(*) FILTER (WHERE event = 'puzzle_completed')::numeric / 
+    NULLIF(COUNT(*) FILTER (WHERE event = 'puzzle_started'), 0) * 100
+  ) as completion_rate,
+  (
+    SELECT variant 
+    FROM v_variant_stats 
+    ORDER BY avg_completion_time ASC 
+    LIMIT 1
+  ) as winning_variant
+FROM posthog_events
+WHERE event IN ('puzzle_started', 'puzzle_completed')
+  AND session_id IS NOT NULL;
+
+GRANT SELECT ON v_project_stats TO anon, authenticated;
+```
+
+**projects.yaml update:**
+
+```yaml
+projects:
+  - id: ab-simulator
+    name: A/B Test Simulator
+    # ... existing fields ...
+    stats:
+      endpoint: v_project_stats
+      display:
+        - key: games_played
+          label: games played
+        - key: completion_rate
+          label: completion
+          suffix: "%"
+        - key: winning_variant
+          label: winning
+```
+
+**ProjectCard hydration pattern:**
+
+```astro
+<!-- Stats container with data attributes -->
+{project.stats && (
+  <div 
+    class="project-stats grid grid-cols-3 gap-3 mt-4" 
+    data-project-id={project.id}
+    data-stats-endpoint={project.stats.endpoint}
+  >
+    {project.stats.display.map((stat) => (
+      <div class="text-center">
+        <div class="text-2xl font-bold" data-stat-key={stat.key}>--</div>
+        <div class="text-xs text-muted-foreground">{stat.label}</div>
+      </div>
+    ))}
+  </div>
+)}
+
+<script>
+  // Vanilla JS hydration — fetches from Supabase and updates DOM
+  document.querySelectorAll('.project-stats').forEach(async (el) => {
+    const projectId = el.dataset.projectId
+    const endpoint = el.dataset.statsEndpoint
+    // ... fetch and render
+  })
+</script>
+```
+
+### Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/styles/app.css` | Remove border-beam animation |
+| `src/components/layout/Header.astro` | Remove border-beam class |
+| `src/pages/index.astro` | Black buttons, gray tags |
+| `packages/build-log/src/pages/index.astro` | Black buttons, gray tags |
+| `packages/build-log/src/pages/contribute/index.astro` | Black buttons |
+| `packages/shared/src/components/ProjectCard.astro` | Black buttons, gray tags, stats display |
+| `packages/shared/src/lib/projects.ts` | Add stats types, remove colored tag config |
+| `packages/shared/src/data/projects.yaml` | Add stats config |
+| `packages/shared/src/supabase.ts` | Add fetchProjectStats() helper |
+| `src/content/config.ts` | Add `featured` field to post schema |
+| Post frontmatter | Add `featured: true` to select posts |
+
+### Design Principles
+
+1. **Restraint over enthusiasm** — Let content speak, reduce visual noise
+2. **Black/white palette** — Color only for functional indicators (Live = green)
+3. **Typography carries design** — Not cards, badges, animations
+4. **Data proves credibility** — Real numbers from real usage
+
+---
+
 ## Backlog
 
 | Task | Description | Status |

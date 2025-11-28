@@ -3,6 +3,7 @@ title: 'How I AI: From Prompting to Partnering'
 description: 'A month building products with Claude changed how I work with AI. Here are the principles and workflows that made the difference.'
 publishDate: '2025-11-27'
 draft: false
+featured: true
 tags: ['ai', 'workflows', 'building', 'opinion']
 ---
 

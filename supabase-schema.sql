@@ -393,3 +393,35 @@ END;
 $$;
 
 GRANT EXECUTE ON FUNCTION public.log_analytics_run(text, text, integer, text) TO anon, authenticated;
+
+-- =============================================
+-- 6. Project Stats View (for portfolio project cards)
+-- =============================================
+
+-- v_project_stats: Returns summary stats for project cards on the portfolio
+-- Called by /api/project-stats endpoint for client-side hydration
+CREATE OR REPLACE VIEW v_project_stats AS
+SELECT 
+  'ab-simulator' as project_id,
+  COUNT(*) FILTER (WHERE event = 'puzzle_started') as games_played,
+  CASE 
+    WHEN COUNT(*) FILTER (WHERE event = 'puzzle_started') > 0 THEN
+      ROUND(
+        COUNT(*) FILTER (WHERE event = 'puzzle_completed')::numeric / 
+        COUNT(*) FILTER (WHERE event = 'puzzle_started') * 100
+      )::integer
+    ELSE 0
+  END as completion_rate,
+  (
+    SELECT variant 
+    FROM v_variant_stats 
+    ORDER BY avg_completion_time ASC 
+    LIMIT 1
+  ) as winning_variant
+FROM posthog_events
+WHERE event IN ('puzzle_started', 'puzzle_completed')
+  AND session_id IS NOT NULL;
+
+COMMENT ON VIEW v_project_stats IS 'Summary stats for portfolio project cards. Returns games_played, completion_rate (%), and winning_variant.';
+
+GRANT SELECT ON v_project_stats TO anon, authenticated;

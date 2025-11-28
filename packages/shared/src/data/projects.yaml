@@ -9,10 +9,15 @@ projects:
     shortDescription: Interactive tool for learning A/B testing fundamentals
     tags:
       - name: Astro
-        color: orange
       - name: React
-        color: sky
       - name: Tailwind
-        color: cyan
       - name: Plotly
-        color: violet
+    stats:
+      metrics:
+        - key: games_played
+          label: games played
+        - key: completion_rate
+          label: completion
+          format: percent
+        - key: winning_variant
+          label: winning

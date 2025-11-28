@@ -48,7 +48,7 @@ export default function LearningsTimeline({ learnings, pageSize = 10 }: Props) {
             href="https://github.com/eeshansrivastava89/soma-portfolio"
             target="_blank"
             rel="noreferrer"
-            className="text-orange-500 hover:underline"
+            className="text-foreground hover:underline"
           >
             Check back soon
           </a>
@@ -67,7 +67,7 @@ export default function LearningsTimeline({ learnings, pageSize = 10 }: Props) {
             onClick={() => handleFilterChange('all')}
             className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
               selectedProject === 'all'
-                ? 'bg-orange-500 text-white'
+                ? 'bg-foreground text-background'
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
@@ -81,7 +81,7 @@ export default function LearningsTimeline({ learnings, pageSize = 10 }: Props) {
                 onClick={() => handleFilterChange(project)}
                 className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
                   selectedProject === project
-                    ? 'bg-orange-500 text-white'
+                    ? 'bg-foreground text-background'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
@@ -136,7 +136,7 @@ function TimelineItem({ learning }: { learning: Learning }) {
     <div className="relative flex gap-4 pb-6 last:pb-0">
       {/* Timeline dot */}
       <div className="relative z-10 mt-1.5 flex h-4 w-4 shrink-0 items-center justify-center">
-        <div className="h-2.5 w-2.5 rounded-full bg-orange-500 ring-4 ring-background" />
+        <div className="h-2.5 w-2.5 rounded-full bg-foreground ring-4 ring-background" />
       </div>
 
       {/* Content */}
@@ -164,7 +164,7 @@ function TimelineItem({ learning }: { learning: Learning }) {
           rel={isExternal ? 'noreferrer' : undefined}
           className="group block"
         >
-          <h3 className="text-base font-semibold text-foreground transition group-hover:text-orange-500">
+          <h3 className="text-base font-semibold text-foreground transition group-hover:text-muted-foreground">
             {learning.title}
             {isExternal && (
               <span className="ml-1 inline-block text-muted-foreground transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
