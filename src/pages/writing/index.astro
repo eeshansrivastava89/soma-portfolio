@@ -10,6 +10,10 @@ const sortedPosts = sortMDByDate(allPosts)
 const technicalPosts = sortedPosts.filter((p) => p.data.category === 'technical')
 const essayPosts = sortedPosts.filter((p) => p.data.category === 'essay')
 
+// Show only first 5 per section
+const technicalPreview = technicalPosts.slice(0, 5)
+const essayPreview = essayPosts.slice(0, 5)
+
 const meta = {
 	description: 'Technical posts and essays on AI, product development, and culture.',
 	title: 'Writing'
@@ -39,10 +43,15 @@ const meta = {
 		<!-- Technical Section -->
 		{technicalPosts.length > 0 && (
 			<section class='mb-12'>
-				<h2 class='mb-4 text-lg font-semibold text-foreground'>Technical</h2>
+				<div class='mb-4 flex items-center justify-between'>
+					<h2 class='text-lg font-semibold text-foreground'>Technical</h2>
+					<a href='/writing/technical/' class='text-sm text-muted-foreground transition hover:text-foreground'>
+						View all →
+					</a>
+				</div>
 				<p class='mb-6 text-sm text-muted-foreground'>Build logs, tutorials, and how I ship products with AI.</p>
 				<ul class='flex flex-col gap-y-4'>
-					{technicalPosts.map((post) => (
+					{technicalPreview.map((post) => (
 						<PostPreview post={post} withDesc />
 					))}
 				</ul>
@@ -52,10 +61,15 @@ const meta = {
 		<!-- Essays Section -->
 		{essayPosts.length > 0 && (
 			<section class='border-t border-border/40 pt-8'>
-				<h2 class='mb-4 text-lg font-semibold text-foreground'>Essays</h2>
+				<div class='mb-4 flex items-center justify-between'>
+					<h2 class='text-lg font-semibold text-foreground'>Essays</h2>
+					<a href='/writing/essays/' class='text-sm text-muted-foreground transition hover:text-foreground'>
+						View all →
+					</a>
+				</div>
 				<p class='mb-6 text-sm text-muted-foreground'>Thoughts on AI, culture, and the changing world.</p>
 				<ul class='flex flex-col gap-y-4'>
-					{essayPosts.map((post) => (
+					{essayPreview.map((post) => (
 						<PostPreview post={post} withDesc />
 					))}
 				</ul>

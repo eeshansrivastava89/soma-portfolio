@@ -383,11 +383,11 @@ src/lib/build-log-config.ts  → Config
 
 ---
 
-## Phase 8: Site Simplification 🔄
+## Phase 8: Site Simplification ✅
 
 **Goal:** Radical simplification of site structure. Remove build-log page, rename blog to writing, streamline home page to 3 sections.
 
-**Status:** Planning
+**Completed:** 2025-11-29
 
 ### Problem
 
@@ -408,9 +408,9 @@ Join the Build (contribute CTA)
 
 **Writing Page (replaces Blog):**
 ```
-Writing
-├── Technical (build logs, tutorials, how-tos)
-└── Essays (opinion, culture, AI thoughts)
+/writing/           → Preview (5 per section) + "View all" links
+/writing/technical/ → All technical posts (paginated)
+/writing/essays/    → All essay posts (paginated)
 ```
 
 **Nav:**
@@ -422,23 +422,47 @@ About | Writing | Contribute
 
 | Task | Description | Status |
 |------|-------------|--------|
-| Add `category` to post schema | `technical` or `essay` field | ⬜ |
-| Update existing posts | Add category to frontmatter | ⬜ |
-| Create `/writing/` page | Two-section layout | ⬜ |
-| Delete `/blog/` route | Remove `src/pages/blog/` | ⬜ |
-| Update home page | Remove "What I'm Writing" section | ⬜ |
-| Delete `/build-log/` page | Remove `src/pages/build-log/index.astro` | ⬜ |
-| Move contribute page | `/build-log/contribute/` → `/contribute/` | ⬜ |
-| Update nav | Blog → Writing, remove Build Log | ⬜ |
-| Delete unused components | `src/components/build-log/PostList.astro` etc. | ⬜ |
-| Verify & commit | Build passes, test all routes | ⬜ |
+| Add `category` to post schema | `technical` or `essay` field | ✅ Done |
+| Update existing posts | Add category to frontmatter | ✅ Done |
+| Create `/writing/` page | Two-section layout with previews | ✅ Done |
+| Create `/writing/technical/` | Paginated technical posts | ✅ Done |
+| Create `/writing/essays/` | Paginated essay posts | ✅ Done |
+| Delete `/blog/` route | Remove `src/pages/blog/` | ✅ Done |
+| Update home page | Remove "What I'm Writing" section | ✅ Done |
+| Delete `/build-log/` page | Remove `src/pages/build-log/index.astro` | ✅ Done |
+| Move contribute page | `/build-log/contribute/` → `/contribute/` | ✅ Done |
+| Update nav | Blog → Writing, remove Build Log | ✅ Done |
+| Rename component folders | `blog/` → `writing/`, `build-log/` → `contribute/` | ✅ Done |
+| Verify & commit | Build passes, 18 pages | ✅ Done |
 
-### Expected Outcome
+### Progress Log
 
-- ✅ Clearer site structure (3 pages: Home, Writing, Contribute, About)
+**Commits:** `8ae4c67`, `1e2fa14`
+
+**Files Created:**
+- `src/pages/writing/index.astro` — Preview page with 5 per section
+- `src/pages/writing/[...slug].astro` — Individual post pages
+- `src/pages/writing/technical/[...page].astro` — Paginated technical posts
+- `src/pages/writing/essays/[...page].astro` — Paginated essay posts
+- `src/pages/contribute/index.astro` — Moved from build-log
+
+**Files Deleted:**
+- `src/pages/blog/` — Entire folder
+- `src/pages/build-log/` — Entire folder
+- `src/components/build-log/PostList.astro`
+
+**Files Renamed:**
+- `src/components/blog/` → `src/components/writing/`
+- `src/components/build-log/` → `src/components/contribute/`
+
+### Outcome
+
+- ✅ Clearer site structure (4 pages: Home, Writing, Contribute, About)
 - ✅ No duplicate content between pages
-- ✅ Fewer nav items
+- ✅ Fewer nav items (4 → 3)
 - ✅ Home page is the "build log" - no separate page needed
+- ✅ Writing page scales with pagination
+- ✅ **-292 lines net**
 
 ---
 
